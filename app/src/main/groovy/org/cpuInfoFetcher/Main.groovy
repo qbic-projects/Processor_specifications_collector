@@ -1,11 +1,4 @@
-package org.cpuInfoFetcher
-
-import org.jsoup.nodes.Document
-import org.jsoup.Jsoup
-import org.jsoup.Connection
-import org.jsoup.nodes.Element
-import org.jsoup.select.Elements
-import org.jsoup.HttpStatusException
+package org.cpuinfofetcher
 
 /**
  * Execute Main function
@@ -16,7 +9,7 @@ import org.jsoup.HttpStatusException
 class Main {
 
     static void main(String[] args) {
-        def isf = new Intel_Specifications_Fetcher(236773, 236774)
+        def isf = new Intel_Specifications_Fetcher()
         isf.main()
     }
 

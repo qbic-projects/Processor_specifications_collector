@@ -29,7 +29,9 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.18.3'
 
     // DataFrames
-    implementation 'org.dflib:dflib-bom:1.2.0'
+    implementation platform('org.dflib:dflib-bom:1.2.0')
+    implementation 'org.dflib:dflib'
+    implementation 'org.dflib:dflib-csv'
     
     // Progressbar
     implementation   'me.tongfei:progressbar:0.10.0'
@@ -51,7 +53,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'org.experimental.Main'
+    mainClass = 'org.cpuinfofetcher.Main'
 }
 
 tasks.named('test') {

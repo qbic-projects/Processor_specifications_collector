@@ -4,6 +4,15 @@
         "CompileStatic": {
             "enabled": false
         },
+        "ConsecutiveBlankLines": {
+            "enabled": false
+        },
+        "DuplicateNumberLiteral": {
+            "enabled": false
+        },
+        "DuplicateStringLiteral": {
+            "enabled": false
+        },
         "JUnitPublicNonTestMethod": {
             "enabled": false
         },
@@ -11,6 +20,9 @@
             "enabled": false
         },
         "ParameterName": {
+            "enabled": false
+        },
+        "PropertyName": {
             "enabled": false
         },
         "UnnecessaryGetter": {
