@@ -27,6 +27,9 @@ dependencies {
 
     // jsoup HTML parser library @ https://jsoup.org/
     implementation 'org.jsoup:jsoup:1.18.3'
+
+    // DataFrames
+    implementation 'org.dflib:dflib-bom:1.2.0'
     
     // Progressbar
     implementation   'me.tongfei:progressbar:0.10.0'
