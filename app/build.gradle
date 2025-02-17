@@ -6,6 +6,8 @@
  */
 
 plugins {
+    id 'java'
+    
     // Apply the groovy Plugin to add support for Groovy.
     id 'groovy'
 
@@ -54,6 +56,20 @@ java {
 application {
     // Define the main class for the application.
     mainClass = 'org.cpuinfofetcher.Main'
+}
+
+javadoc {
+    destinationDir = file("${buildDir}/docs/javadoc")
+}
+
+tasks.register("downloadJavadoc") {
+    doLast {
+        configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+            if (artifact.name.contains("javadoc")) {
+                println("Javadoc available: ${artifact.file}")
+            }
+        }
+    }
 }
 
 tasks.named('test') {

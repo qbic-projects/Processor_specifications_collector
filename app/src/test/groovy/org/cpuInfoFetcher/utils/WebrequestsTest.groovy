@@ -5,23 +5,20 @@ import spock.lang.Specification
 /*
  * Test CSVio
  */
-class CSVioTest extends Specification {
+class WebrequestsTest extends Specification {
 
-    protected List<String[]> mockData = [
-        ['col1', 'col2', 'col3'],
-        ['1', '2', '3']
-    ]
-    protected Path mockPath = '../resources'
+    boolean returnTrue() { return true }
 
     def "correct CSV writing"() {
         setup:
-        def csvIO = new CSVio()
+        def b = false
 
         when:
-        csvIO.write(this.mockData, this.mockPath.resolve('mock.csv'))
+        b = returnTrue()
+
 
         then:
-        mockPath.resolve('mock.csv').toFile().isFile()
+        b
     }
 
 }

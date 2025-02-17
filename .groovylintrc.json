@@ -22,6 +22,12 @@
         "ParameterName": {
             "enabled": false
         },
+        "ParameterReassignment": {
+            "enabled": false
+        },
+        "PrintStackTrace": {
+            "enabled": false
+        },
         "PropertyName": {
             "enabled": false
         },
