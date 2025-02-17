@@ -17,6 +17,7 @@ import me.tongfei.progressbar.ProgressBar
 
 import org.dflib.DataFrame
 import org.dflib.JoinType
+import org.dflib.Printers
 import org.dflib.csv.Csv
 
 /**
@@ -45,13 +46,15 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         'threads': ['threads']
     ]
 
+    List<String> standard_cols = ['product_id', 'name', 'time', 'source']
+
 
     // Extract processor family urls from main ark
     protected DataFrame fetch_processor_family_urls(String url, Path snap_path) {
         snap_path = snap_path.resolve('Intel_family_info.csv')
 
         // Get snapshot & Update time
-        def df = check_snap(snap_path, ['name', 'url', 'time', 'source'])
+        def df = check_snap(snap_path, [*this.standard_cols, 'url'])
         int days_since_update = check_last_update(df, ChronoUnit.DAYS)
 
         if (days_since_update > 28 || days_since_update < 0) {
@@ -63,9 +66,10 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
             for (Element element : elements) {
                 df.append(
                     element.ownText(),
-                    element.attr('abs:href'),
+                    element.ownText(),
                     timeFormat.format(this.localTime.now()),
-                    url
+                    url,
+                    element.attr('abs:href'),
                 )
             }
             df = df.toDataFrame()
@@ -87,7 +91,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         snap_path = snap_path.resolve(name + '.csv')
 
         // Get snapshot & Update time
-        def df = check_snap(snap_path, ['product_id', 'name', 'url', 'time', 'source'])
+        def df = check_snap(snap_path, [*this.standard_cols, 'url'])
         int days_since_update = check_last_update(df, ChronoUnit.DAYS)
 
         if (days_since_update > 28 || days_since_update < 0) {
@@ -105,8 +109,8 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
                     df.append(
                         product_id,
                         link_element.ownText(),
-                        link_element.attr('abs:href'),
                         timeFormat.format(this.localTime.now()),
+                        link_element.attr('abs:href'),
                         url
                     )
                 }
@@ -146,15 +150,17 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
                 Element label_element = element.selectXpath(xPath_query).first()
                 xPath_query = './/div[contains(@class, "tech-data")]'
                 Element data_element = element.selectXpath(xPath_query).first()
-                if (!labels.contains(label_element.text())) {
-                    labels.add(label_element.text())
-                    data.add(data_element.text())
+                if (label_element != null && data_element != null){
+                    if (!labels.contains(label_element.text())) {
+                        labels.add(label_element.text())
+                        data.add(data_element.text())
+                    }
                 }
             }
 
             // Merge info into url row
             df = DataFrame
-                .foldByColumn('product_id', 'name', 'time', 'source', *labels)
+                .foldByColumn(*this.standard_cols, *labels)
                 .of(
                     processor_url.get('product_id', 0),
                     processor_url.get('name', 0),
@@ -212,28 +218,37 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         }
         this.threadPool.shutdown()
 
-        // Save results
+        // Extract and save results
+        snap_path = snap_path.resolve('Intel_processor_specifications.csv')
         DataFrame specifications = DataFrame.empty()
         for (Future future : futures) {
             // Extract df from future
             def df = future.get()
 
             // Find columns with desired info
-            List<String> matched_cols = []
+            Map<String, String> matched_cols = [:]
             specification_aliases.each { specification_key, aliases ->
-                matched_cols.add(
+                matched_cols.put(
+                    specification_key,
                     df.getColumnsIndex().toArray().find { col_name ->
                         aliases.any { alias -> col_name.toLowerCase().contains(alias.toLowerCase()) }
                     }
                 )
             }
-
-            // Add specification to collection dataframe
-            specifications.vConcat(JoinType.inner, df)
+            // If not thread information is provided (older models), use core information
+            if (matched_cols.get('threads') == null) {
+                matched_cols.put('threads', matched_cols.get('cores'))
+            }
+            if (!matched_cols.values().contains(null)) {
+                // Add specification to collection dataframe
+                specifications = specifications.vConcat(
+                    JoinType.full,
+                    df.cols(*this.standard_cols, *matched_cols.values().toArray())
+                        .selectAs(*this.standard_cols, *matched_cols.keySet().toArray())
+                )
+            }
         }
-        specifications = specifications.toDataFrame()
 
-        snap_path = snap_path.resolve('Intel_processor_specifications.csv')
         Csv.save(specifications, snap_path)
 
         return specifications
@@ -261,7 +276,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         // Collect processor URLs
         this.progressBar = new ProgressBar('Fetching processor URLs:', family_urls.height())
         DataFrame processor_urls = DataFrame
-            .byArrayRow('product_id', 'name', 'url', 'time', 'source')
+            .byArrayRow(*this.standard_cols, 'url')
             .appender()
             .toDataFrame()
         for (int i = 0; i < family_urls.height(); i++) {

@@ -1,6 +1,7 @@
 package org.cpuinfofetcher
 
 import java.nio.file.Path
+import java.nio.file.Paths
 import java.nio.file.Files
 
 import java.time.LocalDateTime
@@ -76,7 +77,7 @@ class Main {
         DataFrame specifications = DataFrame.empty()
 
         for (specification : specificationsList) {
-            specifications.vConcat(JoinType.inner, specification)
+            specifications = specifications.vConcat(JoinType.full, specification)
         }
 
         return specifications
@@ -85,7 +86,7 @@ class Main {
     static void main(String[] args) {
         List<DataFrame> specificationsList = collectSpecifications()
         DataFrame specifications = mergeSpecifications(specificationsList)
-        Csv.save(specifications, 'CPU_specifications.csv')
+        Csv.save(specifications, Paths.get('..', 'CPU_specifications.csv'))
         this.specifications = specifications
     }
 
