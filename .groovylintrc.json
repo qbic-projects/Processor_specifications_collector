@@ -13,7 +13,16 @@
         "DuplicateStringLiteral": {
             "enabled": false
         },
+        "Instanceof": {
+            "enabled": false
+        },
         "JUnitPublicNonTestMethod": {
+            "enabled": false
+        },
+        "MethodParameterTypeRequired": {
+            "enabled": false
+        },
+        "MethodReturnTypeRequired": {
             "enabled": false
         },
         "NoDef": {
@@ -29,6 +38,9 @@
             "enabled": false
         },
         "PropertyName": {
+            "enabled": false
+        },
+        "UnnecessaryElseStatement": {
             "enabled": false
         },
         "UnnecessaryGetter": {
