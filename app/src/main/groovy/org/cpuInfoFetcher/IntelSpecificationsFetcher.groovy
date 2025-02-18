@@ -29,25 +29,17 @@ import org.dflib.csv.Csv
 class IntelSpecificationsFetcher extends SpecificationsFetcher {
 
     int numThreads = 1
-    IntelSpecificationsFetcher(int numThreads) {
+    IntelSpecificationsFetcher(int numThreads, int days_until_update) {
         this.numThreads = numThreads
+        this.days_until_update = days_until_update
     }
+
     // Scraper
     HTMLScraper scraper = new HTMLScraper()
 
     // Execution instances
     ProgressBar progressBar
     ExecutorService threadPool = Executors.newFixedThreadPool(numThreads)
-
-    // Mapping possible naming schenes for attributes
-    Map<String, String[]> specification_aliases = [
-        'tgb': ['Processor Base Power', 'tdp', 'thermal design power', 'Scenario Design Power', 'SDP'],
-        'cores': ['cores'],
-        'threads': ['threads']
-    ]
-
-    List<String> standard_cols = ['product_id', 'name', 'time', 'source']
-
 
     // Extract processor family urls from main ark
     protected DataFrame fetch_processor_family_urls(String url, Path snap_path) {
@@ -57,7 +49,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         def df = check_snap(snap_path, [*this.standard_cols, 'url'])
         int days_since_update = check_last_update(df, ChronoUnit.DAYS)
 
-        if (days_since_update > 28 || days_since_update < 0) {
+        if (days_since_update > this.days_until_update || days_since_update < 0) {
             // divs with class "products processors" -> "a" elements with hrefs containing "processor"
             String xPath_query = './/div[@class=\'products processors\']//a[contains(@href, "processor")]'
             Elements elements = this.scraper.scrape(url, xPath_query)
@@ -94,7 +86,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         def df = check_snap(snap_path, [*this.standard_cols, 'url'])
         int days_since_update = check_last_update(df, ChronoUnit.DAYS)
 
-        if (days_since_update > 28 || days_since_update < 0) {
+        if (days_since_update > this.days_until_update || days_since_update < 0) {
             // table with id "product-table" -> table body -> table rows
             String xPath_query = './/table[@id=\'product-table\']//tbody/tr'
             Elements elements = this.scraper.scrape(url, xPath_query)
@@ -136,7 +128,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         def df = check_snap(snap_path, [])
         int days_since_update = check_last_update(df, ChronoUnit.DAYS)
 
-        if (days_since_update > 28 || days_since_update < 0) {
+        if (days_since_update > this.days_until_update || days_since_update < 0) {
             String url = processor_url.get('url', 0)
             // divs with id "spec" -> "divs containing "tech-section" in class
             String xPath_query = './/div[contains(@id, "spec")]//div[contains(@class, "tech-section")]'
@@ -225,28 +217,11 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
             // Extract df from future
             def df = future.get()
 
-            // Find columns with desired info
-            Map<String, String> matched_cols = [:]
-            specification_aliases.each { specification_key, aliases ->
-                matched_cols.put(
-                    specification_key,
-                    df.getColumnsIndex().toArray().find { col_name ->
-                        aliases.any { alias -> col_name.toLowerCase().contains(alias.toLowerCase()) }
-                    }
-                )
-            }
-            // If not thread information is provided (older models), use core information
-            if (matched_cols.get('threads') == null) {
-                matched_cols.put('threads', matched_cols.get('cores'))
-            }
-            if (!matched_cols.values().contains(null)) {
-                // Add specification to collection dataframe
-                specifications = specifications.vConcat(
-                    JoinType.full,
-                    df.cols(*this.standard_cols, *matched_cols.values().toArray())
-                        .selectAs(*this.standard_cols, *matched_cols.keySet().toArray())
-                )
-            }
+            // Add specification to collection dataframe
+            specifications = specifications.vConcat(
+                JoinType.full,
+                df
+            )
         }
 
         Csv.save(specifications, snap_path)

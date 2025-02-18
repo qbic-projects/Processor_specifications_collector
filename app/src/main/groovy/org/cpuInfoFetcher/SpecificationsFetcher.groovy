@@ -24,6 +24,11 @@ public class SpecificationsFetcher {
     DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern('yyyy-MM-dd HH:mm:ss')
     LocalDateTime localTime = LocalDateTime.now()
 
+    // DataFrame construction parameters
+    int days_until_update = 28
+    List<String> standard_cols = ['product_id', 'name', 'time', 'source']
+
+
     // Check last snap of Dataframe
     def check_snap(Path path, List newColumns) {
         if (Files.isRegularFile(path)) {
@@ -62,11 +67,12 @@ class Main {
     static List<DataFrame> collectSpecifications() {
         List<DataFrame> specificationsList = []
 
-        // Intel
-        IntelSpecificationsFetcher intelSF = new IntelSpecificationsFetcher(8)
-        specificationsList.add(intelSF.main())
-
         // AMD
+        AMDSpecificationsFetcher amdSF = new AMDSpecificationsFetcher(-1)
+
+        // Intel
+        IntelSpecificationsFetcher intelSF = new IntelSpecificationsFetcher(8, -1)
+        specificationsList.add(intelSF.main())
 
         // Ampera
 
