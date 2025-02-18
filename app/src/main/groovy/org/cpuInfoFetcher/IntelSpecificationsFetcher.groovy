@@ -101,7 +101,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
 
             // Make data matrix
             for (Element element : elements) {
-                String product_id = element.attr('abs:data-product-id')
+                String product_id = element.attr('data-product-id')
                 // table data with data-component "arkproductlink" -> "a" elements
                 xPath_query = './/td[@data-component=\'arkproductlink\']//a'
                 Element link_element = element.selectXpath(xPath_query).first()
@@ -138,7 +138,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
 
         if (days_since_update > 28 || days_since_update < 0) {
             String url = processor_url.get('url', 0)
-            // divs with class "products processors" -> "a" elements with hrefs containing "processor" -> hrefs
+            // divs with id "spec" -> "divs containing "tech-section" in class
             String xPath_query = './/div[contains(@id, "spec")]//div[contains(@class, "tech-section")]'
             Elements elements = this.scraper.scrape(url, xPath_query)
 
@@ -150,7 +150,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
                 Element label_element = element.selectXpath(xPath_query).first()
                 xPath_query = './/div[contains(@class, "tech-data")]'
                 Element data_element = element.selectXpath(xPath_query).first()
-                if (label_element != null && data_element != null){
+                if (label_element != null && data_element != null) {
                     if (!labels.contains(label_element.text())) {
                         labels.add(label_element.text())
                         data.add(data_element.text())
