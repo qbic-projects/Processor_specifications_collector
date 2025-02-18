@@ -40,6 +40,9 @@
         "PropertyName": {
             "enabled": false
         },
+        "PublicMethodsBeforeNonPublicMethods": {
+            "enabled": false
+        },
         "UnnecessaryElseStatement": {
             "enabled": false
         },
