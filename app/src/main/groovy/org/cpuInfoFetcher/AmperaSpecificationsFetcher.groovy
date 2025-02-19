@@ -46,6 +46,8 @@ class AmperaSpecificationsFetcher extends SpecificationsFetcher {
             Element table = this.scraper.scrape(url, xPath_query).first()
             df = this.scraper.parse_table(table)
             df = add_metadata(df, url)
+            df = df.cols().selectAs(Map.of('ORDERING PART NUMBER', 'product_id'))
+            df = df.cols().selectAs(Map.of('PRODUCT NAME', 'name'))
 
             Csv.save(df, snap_path)
         } else {

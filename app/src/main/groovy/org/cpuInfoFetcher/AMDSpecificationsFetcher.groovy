@@ -48,9 +48,11 @@ class AMDSpecificationsFetcher extends SpecificationsFetcher {
             this.scraper.scrape(url, xPath_reject, xPath_query)
 
             Files.move(downloadPath, snap_path, StandardCopyOption.REPLACE_EXISTING)
+            removeBOM(snap_path)
 
             df = Csv.load(snap_path)
             df = add_metadata(df, url)
+            df = df.cols().selectAs(Map.of('Name', 'name'))
 
             Csv.save(df, snap_path)
         }

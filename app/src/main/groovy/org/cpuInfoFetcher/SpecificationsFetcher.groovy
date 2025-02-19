@@ -5,6 +5,7 @@ import java.util.logging.Logger
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.nio.file.Files
+import java.nio.charset.StandardCharsets
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -66,6 +67,15 @@ public class SpecificationsFetcher {
         meta_df = meta_df.toDataFrame()
 
         return meta_df.hConcat(df)
+    }
+
+    void removeBOM(Path path){
+        byte[] bytes = Files.readAllBytes(path)
+        String content = new String(bytes, StandardCharsets.UTF_8)
+        if (content.startsWith('\uFEFF')) {
+            content = content.substring(1)
+        }
+        Files.write(path, content.getBytes())
     }
 
 }
