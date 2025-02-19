@@ -33,10 +33,13 @@ class AMDSpecificationsFetcher extends SpecificationsFetcher {
 
 
     DataFrame fetch_processor_specifications(String url, Path snap_path) {
-        int days_since_update = check_last_update(null, ChronoUnit.DAYS)
-
         Path downloadPath = snap_path.resolve('Processor Specifications.csv')
         snap_path = snap_path.resolve('AMD_processor_specifications.csv')
+
+        // Get snapshot & Update time
+        def df = check_snap(snap_path, [])
+        int days_since_update = check_last_update(df, ChronoUnit.DAYS)
+
         if (days_since_update > this.days_until_update || days_since_update < 0) {
             // divs with class "products processors" -> "a" elements with hrefs containing "processor"
             String xPath_query = './/button[contains(@class, "buttons-csv")]'
@@ -45,9 +48,12 @@ class AMDSpecificationsFetcher extends SpecificationsFetcher {
             this.scraper.scrape(url, xPath_reject, xPath_query)
 
             Files.move(downloadPath, snap_path, StandardCopyOption.REPLACE_EXISTING)
-        }
 
-        DataFrame df = Csv.load(snap_path)
+            df = Csv.load(snap_path)
+            df = add_metadata(df, url)
+
+            Csv.save(df, snap_path)
+        }
 
         return df
     }

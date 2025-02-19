@@ -34,8 +34,10 @@ class AmperaSpecificationsFetcher extends SpecificationsFetcher {
 
     DataFrame fetch_processor_specifications(String url, Path snap_path) {
         snap_path = snap_path.resolve('Ampera_processor_specifications.csv')
-        DataFrame df
-        int days_since_update = check_last_update(null, ChronoUnit.DAYS)
+
+        // Get snapshot & Update time
+        def df = check_snap(snap_path, [])
+        int days_since_update = check_last_update(df, ChronoUnit.DAYS)
 
         if (days_since_update > this.days_until_update || days_since_update < 0) {
             // divs with class "products processors" -> "a" elements with hrefs containing "processor"
@@ -43,6 +45,7 @@ class AmperaSpecificationsFetcher extends SpecificationsFetcher {
 
             Element table = this.scraper.scrape(url, xPath_query).first()
             df = this.scraper.parse_table(table)
+            df = add_metadata(df, url)
 
             Csv.save(df, snap_path)
         } else {

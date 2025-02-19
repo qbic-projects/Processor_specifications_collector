@@ -47,10 +47,25 @@ public class SpecificationsFetcher {
     // Method for accessing time of snapshot
     int check_last_update(def df, ChronoUnit unit) {
         if (df instanceof DataFrame && df.height() > 0) {
-            return LocalDateTime.parse(df.get('time', 0), timeFormat)
-                .until(this.localTime.now(), unit)
+            if (df.getColumnsIndex().toArray().contains('time')) {
+                return LocalDateTime.parse(df.get('time', 0), timeFormat)
+                    .until(this.localTime.now(), unit)
+            }
         }
         return -1
+    }
+
+    DataFrame add_metadata(DataFrame df, String source) {
+        def meta_df = DataFrame.byArrayRow('time', 'source').appender()
+        for (int i = 0; i < df.height(); i++) {
+            meta_df.append(
+                timeFormat.format(this.localTime.now()),
+                source
+            )
+        }
+        meta_df = meta_df.toDataFrame()
+
+        return meta_df.hConcat(df)
     }
 
 }
@@ -63,28 +78,30 @@ public class SpecificationsFetcher {
  */
 class Main {
 
-    static Logger logger = Logger.getLogger('')
+    private static final Logger LOGGER = Logger.getLogger('Main')
 
     static DataFrame specifications
 
     static List<DataFrame> collectSpecifications(int days_until_outdated) {
+        LOGGER.entering('Main', 'collectSpecifications')
         List<DataFrame> specificationsList = []
 
         // Intel
+        LOGGER.info('Fetching Intel specifications.')
         IntelSpecificationsFetcher intelSF = new IntelSpecificationsFetcher(1, days_until_outdated)
         specificationsList.add(intelSF.main())
-        logger.info('Fetched Intel specifications.')
 
         // AMD
+        LOGGER.info('Fetching AMD specifications.')
         AMDSpecificationsFetcher amdSF = new AMDSpecificationsFetcher(days_until_outdated)
         specificationsList.add(amdSF.main())
-        logger.info('Fetched AMD specifications.')
 
         // Ampera
+        LOGGER.info('Fetching Ampera specifications.')
         AmperaSpecificationsFetcher amperaSF = new AmperaSpecificationsFetcher(days_until_outdated)
         specificationsList.add(amperaSF.main())
-        logger.info('Fetched Ampera specifications.')
 
+        LOGGER.exiting('Main', 'collectSpecifications')
         return specificationsList
     }
 
@@ -99,13 +116,15 @@ class Main {
     }
 
     static void main(String[] args) {
+        LOGGER.entering('Main', 'main')
         List<DataFrame> specificationsList = collectSpecifications(28)
-        logger.info('Updated all specifications.')
-        
+        LOGGER.info('Updated all specifications.')
+
         DataFrame specifications = mergeSpecifications(specificationsList)
         Csv.save(specifications, Paths.get('..', 'CPU_specifications.csv'))
         this.specifications = specifications
-        logger.info('Merged all specifications.')
+        LOGGER.info('Merged all specifications.')
+        LOGGER.exiting('Main', 'main')
     }
 
 }
