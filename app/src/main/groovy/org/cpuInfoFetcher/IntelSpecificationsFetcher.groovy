@@ -29,17 +29,21 @@ import org.dflib.csv.Csv
 class IntelSpecificationsFetcher extends SpecificationsFetcher {
 
     int numThreads = 1
+    ProgressBar progressBar
+    ExecutorService threadPool = Executors.newFixedThreadPool(numThreads)
+    Path snap_path
+    HTMLScraper scraper = new HTMLScraper()
     IntelSpecificationsFetcher(int numThreads, int days_until_update) {
         this.numThreads = numThreads
         this.days_until_update = days_until_update
+
+        // Add path for assets
+        String script_path = getClass().protectionDomain.codeSource.location.path
+        this.snap_path = Paths.get(script_path, '..', '..', '..', 'resources', 'main', 'assets', 'Intel')
+            .toAbsolutePath()
+            .normalize()
     }
 
-    // Scraper
-    HTMLScraper scraper = new HTMLScraper()
-
-    // Execution instances
-    ProgressBar progressBar
-    ExecutorService threadPool = Executors.newFixedThreadPool(numThreads)
 
     // Extract processor family urls from main ark
     protected DataFrame fetch_processor_family_urls(String url, Path snap_path) {
@@ -55,13 +59,14 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
             Elements elements = this.scraper.scrape(url, xPath_query)
 
             // Make data matrix
+            df = DataFrame.byArrayRow(df.getColumnsIndex()).appender()
             for (Element element : elements) {
                 df.append(
                     element.ownText(),
                     element.ownText(),
                     timeFormat.format(this.localTime.now()),
                     url,
-                    element.attr('abs:href'),
+                    element.attr('abs:href')
                 )
             }
             df = df.toDataFrame()
@@ -92,6 +97,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
             Elements elements = this.scraper.scrape(url, xPath_query)
 
             // Make data matrix
+            df = DataFrame.byArrayRow(df.getColumnsIndex()).appender()
             for (Element element : elements) {
                 String product_id = element.attr('data-product-id')
                 // table data with data-component "arkproductlink" -> "a" elements
@@ -102,8 +108,8 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
                         product_id,
                         link_element.ownText(),
                         timeFormat.format(this.localTime.now()),
+                        url,
                         link_element.attr('abs:href'),
-                        url
                     )
                 }
             }
@@ -152,7 +158,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
 
             // Merge info into url row
             df = DataFrame
-                .foldByColumn(*this.standard_cols, *labels)
+                .foldByColumn(*this.standard_cols, 'url', *labels)
                 .of(
                     processor_url.get('product_id', 0),
                     processor_url.get('name', 0),
@@ -215,7 +221,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         DataFrame specifications = DataFrame.empty()
         for (Future future : futures) {
             // Extract df from future
-            def df = future.get()
+            DataFrame df = future.get()
 
             // Add specification to collection dataframe
             specifications = specifications.vConcat(
@@ -232,20 +238,11 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
 
     // Main (invoker)
     DataFrame main() {
-        // Add path for assets
-        String script_path = getClass().protectionDomain.codeSource.location.path
-        Path snap_path = Paths.get(script_path, '..', '..', '..', 'resources', 'main', 'assets')
-            .toAbsolutePath()
-            .normalize()
-
-        // Intel
-        snap_path = snap_path.resolve('Intel')
-
         // Collect Processor family URLs
         this.progressBar = new ProgressBar('Fetching processor family URLs:', 1)
         DataFrame family_urls = fetch_processor_family_urls(
             'https://www.intel.com/content/www/us/en/ark.html',
-            snap_path.resolve('processor_family_urls'),
+            this.snap_path.resolve('processor_family_urls'),
         )
 
         // Collect processor URLs
@@ -259,7 +256,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
             processor_urls = processor_urls.vConcat(
                 fetch_processor_urls(
                     family_url,
-                    snap_path.resolve('processor_urls'),
+                    this.snap_path.resolve('processor_urls'),
                 )
             )
         }
@@ -268,7 +265,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         this.progressBar = new ProgressBar('Fetching Processor Info:', processor_urls.size())
         DataFrame specifications = fetch_specifications(
             processor_urls,
-            snap_path,
+            this.snap_path,
         )
 
         return specifications

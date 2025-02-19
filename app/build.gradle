@@ -38,6 +38,10 @@ dependencies {
     // Progressbar
     implementation   'me.tongfei:progressbar:0.10.0'
 
+    // Selenium web scraping
+    implementation 'org.seleniumhq.selenium:selenium-java:4.28.1'
+    implementation 'org.junit.jupiter:junit-jupiter-engine:5.11.4'
+
 
     // Use the awesome Spock testing and specification framework even with Java
     testImplementation libs.spock.core

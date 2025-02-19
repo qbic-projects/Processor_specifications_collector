@@ -1,5 +1,7 @@
 package org.cpuinfofetcher
 
+import java.util.logging.Logger
+
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.nio.file.Files
@@ -28,15 +30,15 @@ public class SpecificationsFetcher {
     int days_until_update = 28
     List<String> standard_cols = ['product_id', 'name', 'time', 'source']
 
+    // TODO: MERGING
+
 
     // Check last snap of Dataframe
-    def check_snap(Path path, List newColumns) {
+    DataFrame check_snap(Path path, List newColumns) {
         if (Files.isRegularFile(path)) {
             return Csv.load(path)
         } else if (newColumns.size() > 0) {
-            return DataFrame
-                .byArrayRow(*newColumns)
-                .appender()
+            return DataFrame.empty(*newColumns)
         } else {
             return DataFrame.empty()
         }
@@ -44,12 +46,11 @@ public class SpecificationsFetcher {
 
     // Method for accessing time of snapshot
     int check_last_update(def df, ChronoUnit unit) {
-        int days_since_update = -1
         if (df instanceof DataFrame && df.height() > 0) {
-            days_since_update = LocalDateTime.parse(df.get('time', 0), timeFormat)
+            return LocalDateTime.parse(df.get('time', 0), timeFormat)
                 .until(this.localTime.now(), unit)
         }
-        return days_since_update
+        return -1
     }
 
 }
@@ -62,19 +63,27 @@ public class SpecificationsFetcher {
  */
 class Main {
 
+    static Logger logger = Logger.getLogger('')
+
     static DataFrame specifications
 
-    static List<DataFrame> collectSpecifications() {
+    static List<DataFrame> collectSpecifications(int days_until_outdated) {
         List<DataFrame> specificationsList = []
 
-        // AMD
-        AMDSpecificationsFetcher amdSF = new AMDSpecificationsFetcher(-1)
-
         // Intel
-        IntelSpecificationsFetcher intelSF = new IntelSpecificationsFetcher(8, -1)
+        IntelSpecificationsFetcher intelSF = new IntelSpecificationsFetcher(1, days_until_outdated)
         specificationsList.add(intelSF.main())
+        logger.info('Fetched Intel specifications.')
+
+        // AMD
+        AMDSpecificationsFetcher amdSF = new AMDSpecificationsFetcher(days_until_outdated)
+        specificationsList.add(amdSF.main())
+        logger.info('Fetched AMD specifications.')
 
         // Ampera
+        AmperaSpecificationsFetcher amperaSF = new AmperaSpecificationsFetcher(days_until_outdated)
+        specificationsList.add(amperaSF.main())
+        logger.info('Fetched Ampera specifications.')
 
         return specificationsList
     }
@@ -90,10 +99,13 @@ class Main {
     }
 
     static void main(String[] args) {
-        List<DataFrame> specificationsList = collectSpecifications()
+        List<DataFrame> specificationsList = collectSpecifications(28)
+        logger.info('Updated all specifications.')
+        
         DataFrame specifications = mergeSpecifications(specificationsList)
         Csv.save(specifications, Paths.get('..', 'CPU_specifications.csv'))
         this.specifications = specifications
+        logger.info('Merged all specifications.')
     }
 
 }
