@@ -3,7 +3,6 @@ package org.cpuinfofetcher
 import org.dflib.DataFrame
 import org.dflib.JoinType
 import org.dflib.Printers
-import org.dflib.csv.Csv
 
 /**
  * Summarize extracted information into one file
@@ -21,36 +20,37 @@ class CPUSpecificationsSummarizer {
     * @since 1.0
     */
     Map<String, String> match_column_aliases(DataFrame df, Map<String, String[]> specification_aliases) {
-        Map<String, String> matched_cols = [:]
+        Map<String, String> matched_elements = [:]
         specification_aliases.each { specification_key, aliases ->
             for (String alias : aliases) {
                 for (String col_name : df.getColumnsIndex().toArray()) {
                     if (alias.toLowerCase() == col_name.toLowerCase() && df.get(col_name, 0) != null) {
-                        matched_cols.put(specification_key, col_name)
+                        matched_elements.put(specification_key, df.get(col_name, 0))
                     }
                 }
             }
-            if (!matched_cols.containsKey(specification_key)) {
-                matched_cols.put(specification_key, 'not found')
+            if (!matched_elements.containsKey(specification_key)) {
+                matched_elements.put(specification_key, null)
             }
         }
 
-        return matched_cols
+        return matched_elements
     }
 
-    DataFrame extract_selection(DataFrame df, Map<String, String[]> specification_aliases){
+    DataFrame extract_selection(DataFrame df, Map<String, String[]> specification_aliases, boolean discard_unmatched) {
         DataFrame combined = DataFrame.empty()
         for (int i = 0; i < df.height(); i++) {
             DataFrame row = df.rows(i).select()
-            Map<String, String> matched_cols = match_column_aliases(row, specification_aliases)
-            row = row.hConcat(
-                DataFrame.foldByRow('not found').of(null)
-            )
-            combined = combined.vConcat(
-                row
-                    .cols(*matched_cols.values().toArray())
-                    .selectAs(*matched_cols.keySet().toArray())
-            )
+            Map<String, String> matched_elements = match_column_aliases(row, specification_aliases)
+            if (discard_unmatched && matched_elements.values().toArray().contains(null)) {
+                continue
+            }
+            DataFrame selected_info = DataFrame
+                .byArrayRow(*matched_elements.keySet().toArray())
+                .appender()
+                .append(*matched_elements.values().toArray())
+                .toDataFrame()
+            combined = combined.vConcat(JoinType.full, selected_info)
         }
 
         return combined

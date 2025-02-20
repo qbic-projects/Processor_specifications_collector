@@ -17,7 +17,6 @@ import me.tongfei.progressbar.ProgressBar
 
 import org.dflib.DataFrame
 import org.dflib.JoinType
-import org.dflib.Printers
 import org.dflib.csv.Csv
 
 /**

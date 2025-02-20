@@ -93,17 +93,17 @@ class Main {
     static DataFrame selected_specifications
     // Mapping possible naming schemes for attributes
     static Map<String, String[]> specification_aliases = [
-        'product_id': ['product_id'],
+        'product_id': ['name', 'product_id'],
         'name': ['name'],
         'time': ['time'],
         'source': ['source'],
         'tdp': [
             'SDP', 'Scenario Design Power',
-            'Processor Base Power', 'USAGE POWER', 'Default TDP',
+            'Processor Base Power', 'USAGE POWER (W)', 'Default TDP',
             'tdp', 'thermal design power',
         ],
         'cores': ['Total Cores', '# of CPU Cores', 'cores'],
-        'threads': ['cores', '# of Threads', 'threads']
+        'threads': ['cores', 'Total Cores', '# of CPU Cores', '# of Threads', 'threads']
     ]
 
     static List<DataFrame> collectSpecifications(int days_until_outdated) {
@@ -153,7 +153,11 @@ class Main {
 
         // Selecting relevant information
         CPUSpecificationsSummarizer summarizer = new CPUSpecificationsSummarizer()
-        DataFrame selected_specifications = summarizer.extract_selection(specifications, this.specification_aliases)
+        DataFrame selected_specifications = summarizer.extract_selection(
+            specifications,
+            this.specification_aliases,
+            true
+        )
         Csv.save(selected_specifications, Paths.get('..', 'CPU_selected_specifications.csv'))
         this.selected_specifications = selected_specifications
         LOGGER.info('Extracted information.')

@@ -112,11 +112,13 @@ class InteractiveHTMLScraper extends HTMLScraper {
         this.driver.get(request_url)
         waitForPageLoad(this.driver)
 
-        try {
-            WebElement reject_cookies_element = this.driver.findElement(By.xpath(xPath_reject))
-            reject_cookies_element.click()
-        } catch ( NoSuchElementException e) {
-            logger.info('Cookie banner not displayed.')
+        if (xPath_reject != null) {
+            try {
+                WebElement reject_cookies_element = this.driver.findElement(By.xpath(xPath_reject))
+                reject_cookies_element.click()
+            } catch ( NoSuchElementException e) {
+                logger.info('Cookie banner not displayed.')
+            }
         }
 
         WebElement element = this.driver.findElement(By.xpath(xPath_query))
