@@ -13,25 +13,47 @@ import org.dflib.csv.Csv
  */
 class CPUSpecificationsSummarizer {
 
-    // Mapping possible naming schenes for attributes
-    Map<String, String[]> specification_aliases = [
-        'tgb': ['Processor Base Power', 'tdp', 'thermal design power', 'Scenario Design Power', 'SDP'],
-        'cores': ['cores'],
-        'threads': ['threads']
-    ]
-
-    DataFrame match_column_aliases(DataFrame df, Map<String, String[]> specification_aliases) {
-        // Find columns with desired info
+    /**
+    * Returns the last alias for each Map key with the respective alias array
+    * that has a none null value in the given DataFrame.
+    * @author Josua Carl
+    * @version 1.0
+    * @since 1.0
+    */
+    Map<String, String> match_column_aliases(DataFrame df, Map<String, String[]> specification_aliases) {
         Map<String, String> matched_cols = [:]
         specification_aliases.each { specification_key, aliases ->
-            matched_cols.put(
-                specification_key,
-                df.getColumnsIndex().toArray().find { col_name ->
-                    aliases.any { alias -> col_name.toLowerCase().contains(alias.toLowerCase()) }
+            for (String alias : aliases) {
+                for (String col_name : df.getColumnsIndex().toArray()) {
+                    if (alias.toLowerCase() == col_name.toLowerCase() && df.get(col_name, 0) != null) {
+                        matched_cols.put(specification_key, col_name)
+                    }
                 }
-            )
+            }
+            if (!matched_cols.containsKey(specification_key)) {
+                matched_cols.put(specification_key, 'not found')
+            }
         }
 
         return matched_cols
     }
+
+    DataFrame extract_selection(DataFrame df, Map<String, String[]> specification_aliases){
+        DataFrame combined = DataFrame.empty()
+        for (int i = 0; i < df.height(); i++) {
+            DataFrame row = df.rows(i).select()
+            Map<String, String> matched_cols = match_column_aliases(row, specification_aliases)
+            row = row.hConcat(
+                DataFrame.foldByRow('not found').of(null)
+            )
+            combined = combined.vConcat(
+                row
+                    .cols(*matched_cols.values().toArray())
+                    .selectAs(*matched_cols.keySet().toArray())
+            )
+        }
+
+        return combined
+    }
+
 }

@@ -25,6 +25,9 @@
         "MethodReturnTypeRequired": {
             "enabled": false
         },
+        "NestedForLoop": {
+            "enabled": false
+        },
         "NoDef": {
             "enabled": false
         },

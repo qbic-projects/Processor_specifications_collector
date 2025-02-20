@@ -31,8 +31,6 @@ public class SpecificationsFetcher {
     int days_until_update = 28
     List<String> standard_cols = ['product_id', 'name', 'time', 'source']
 
-    // TODO: MERGING
-
 
     // Check last snap of Dataframe
     DataFrame check_snap(Path path, List newColumns) {
@@ -92,6 +90,22 @@ class Main {
 
     static DataFrame specifications
 
+    static DataFrame selected_specifications
+    // Mapping possible naming schemes for attributes
+    static Map<String, String[]> specification_aliases = [
+        'product_id': ['product_id'],
+        'name': ['name'],
+        'time': ['time'],
+        'source': ['source'],
+        'tdp': [
+            'SDP', 'Scenario Design Power',
+            'Processor Base Power', 'USAGE POWER', 'Default TDP',
+            'tdp', 'thermal design power',
+        ],
+        'cores': ['Total Cores', '# of CPU Cores', 'cores'],
+        'threads': ['cores', '# of Threads', 'threads']
+    ]
+
     static List<DataFrame> collectSpecifications(int days_until_outdated) {
         LOGGER.entering('Main', 'collectSpecifications')
         List<DataFrame> specificationsList = []
@@ -126,14 +140,24 @@ class Main {
     }
 
     static void main(String[] args) {
+        // Collecting Info
         LOGGER.entering('Main', 'main')
         List<DataFrame> specificationsList = collectSpecifications(28)
         LOGGER.info('Updated all specifications.')
 
+        // Merging Info into big file
         DataFrame specifications = mergeSpecifications(specificationsList)
         Csv.save(specifications, Paths.get('..', 'CPU_specifications.csv'))
         this.specifications = specifications
         LOGGER.info('Merged all specifications.')
+
+        // Selecting relevant information
+        CPUSpecificationsSummarizer summarizer = new CPUSpecificationsSummarizer()
+        DataFrame selected_specifications = summarizer.extract_selection(specifications, this.specification_aliases)
+        Csv.save(selected_specifications, Paths.get('..', 'CPU_selected_specifications.csv'))
+        this.selected_specifications = selected_specifications
+        LOGGER.info('Extracted information.')
+
         LOGGER.exiting('Main', 'main')
     }
 

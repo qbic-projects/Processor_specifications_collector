@@ -158,7 +158,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
 
             // Merge info into url row
             df = DataFrame
-                .foldByColumn(*this.standard_cols, 'url', *labels)
+                .foldByColumn(*this.standard_cols, *labels)
                 .of(
                     processor_url.get('product_id', 0),
                     processor_url.get('name', 0),
