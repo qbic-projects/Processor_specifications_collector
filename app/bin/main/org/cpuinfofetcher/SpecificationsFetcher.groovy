@@ -103,7 +103,7 @@ class Main {
             'tdp', 'thermal design power',
         ],
         'cores': ['Total Cores', '# of CPU Cores', 'cores'],
-        'threads': ['cores', 'Total Cores', '# of CPU Cores', '# of Threads', 'threads']
+        'threads': ['cores', 'Total Cores', '# of CPU Cores', 'Total Threads', '# of Threads', 'threads']
     ]
 
     static List<DataFrame> collectSpecifications(int days_until_outdated) {
