@@ -2,7 +2,9 @@
 package org.cpuinfofetcher
 
 import org.jsoup.nodes.Element
-import org.jsoup.select.Elements
+import org.jsoup.nodes.Document
+
+import org.dflib.DataFrame
 
 import spock.lang.Specification
 
@@ -11,7 +13,8 @@ import spock.lang.Specification
  */
 class WebrequestsTest extends Specification {
 
-    private final String example_domain = 'https://example.com/'
+    private final String exampleURL = 'https://example.com/'
+    private final String exampleTableURL = 'https://www.htmltables.io/blog/beginners-guide-to-html-tables'
 
     private HTMLScraper scraper
 
@@ -21,24 +24,38 @@ class WebrequestsTest extends Specification {
             String xPath_query = './/a'
 
         when:
-            Element queryResults = this.scraper.scrape(this.example_domain, xPath_query).first()
+            Element queryResults = this.scraper.scrape(this.exampleURL, xPath_query).first()
 
         then:
             queryResults.text() == 'More information...'
     }
 
+    def 'scraping table'() {
+        setup:
+            this.scraper = new HTMLScraper()
+            String xPath_query = './/table'
+
+        when:
+            Element table = this.scraper.scrape(this.exampleTableURL, xPath_query).first()
+            DataFrame df = this.scraper.parse_table(table)
+
+        then:
+            df.getColumnsIndex().toArray() == ['Team', 'Sport', 'City']
+    }
+
+
     def 'interactive html scraping of standard website'() {
-            setup:
-                this.scraper = new InteractiveHTMLScraper('.')
-                String xPath_reject = null
-                String xPath_query = './/a'
+        setup:
+            this.scraper = new InteractiveHTMLScraper('.')
+            String xPath_reject = null
+            String xPath_query = './/a'
 
-            when:
-                Document queryResults = this.scraper.scrape(this.example_domain, xPath_reject, xPath_query).first()
-                Element firstHeader = queryResults.selectXpath('.//div[@class="help-article"]/h*').first()
+        when:
+            Document queryResults = this.scraper.scrape(this.exampleURL, xPath_reject, xPath_query)
+            Element firstHeader = queryResults.selectXpath('.//div[@class="help-article"]/*').first()
 
-            then:
-                firstHeader.text() == 'Example Domains'
-        }
+        then:
+            firstHeader.text() == 'Example Domains'
+    }
 
 }
