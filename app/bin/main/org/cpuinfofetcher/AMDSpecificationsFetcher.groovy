@@ -20,13 +20,17 @@ class AMDSpecificationsFetcher extends SpecificationsFetcher {
 
     Path snap_path
     InteractiveHTMLScraper scraper
-    AMDSpecificationsFetcher(int days_until_update) {
+    AMDSpecificationsFetcher(int days_until_update, Path snap_path = null) {
         this.days_until_update = days_until_update
 
         String script_path = getClass().protectionDomain.codeSource.location.path
+        if (snap_path == null) {
         this.snap_path = Paths.get(script_path, '..', '..', '..', 'resources', 'main', 'assets', 'AMD')
             .toAbsolutePath()
             .normalize()
+        } else {
+            this.snap_path = snap_path
+        }
 
         this.scraper = new InteractiveHTMLScraper(this.snap_path.toString())
     }

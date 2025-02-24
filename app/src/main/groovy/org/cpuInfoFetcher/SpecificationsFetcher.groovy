@@ -36,7 +36,7 @@ public class SpecificationsFetcher {
     DataFrame check_snap(Path path, List newColumns) {
         if (Files.isRegularFile(path)) {
             return Csv.load(path)
-        } else if (newColumns.size() > 0) {
+        } else if (newColumns != null && newColumns.size() > 0) {
             return DataFrame.empty(*newColumns)
         } else {
             return DataFrame.empty()
@@ -64,7 +64,7 @@ public class SpecificationsFetcher {
         }
         meta_df = meta_df.toDataFrame()
 
-        return meta_df.hConcat(df)
+        return meta_df.hConcat(df).colsExcept(c -> c.endsWith("_")).select()
     }
 
     void removeBOM(Path path){

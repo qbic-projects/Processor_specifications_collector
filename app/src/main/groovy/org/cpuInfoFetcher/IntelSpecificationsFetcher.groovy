@@ -32,15 +32,21 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
     ExecutorService threadPool = Executors.newFixedThreadPool(numThreads)
     Path snap_path
     HTMLScraper scraper = new HTMLScraper()
-    IntelSpecificationsFetcher(int numThreads, int days_until_update) {
+    IntelSpecificationsFetcher(int numThreads, int days_until_update, Path snap_path=null) {
         this.numThreads = numThreads
         this.days_until_update = days_until_update
 
         // Add path for assets
-        String script_path = getClass().protectionDomain.codeSource.location.path
-        this.snap_path = Paths.get(script_path, '..', '..', '..', 'resources', 'main', 'assets', 'Intel')
-            .toAbsolutePath()
-            .normalize()
+        if (snap_path == null) {
+            String script_path = getClass().protectionDomain.codeSource.location.path
+            this.snap_path = Paths.get(script_path, '..', '..', '..', 'resources', 'main', 'assets', 'Intel')
+                .toAbsolutePath()
+                .normalize()
+        } else {
+            this.snap_path = snap_path
+        }
+
+        this.progressBar = new ProgressBar('Waiting', 1)
     }
 
 
@@ -83,7 +89,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
     protected DataFrame fetch_processor_urls(DataFrame family_url, Path snap_path) {
         String url = family_url.get('url', 0)
         String name = family_url.get('name', 0)
-        name = name.replaceAll('[^a-zA-Z0-9 ]+', '').replace(' ', '_')
+        name = name.replaceAll('[^a-zA-Z0-9_ ]+', '').replace(' ', '_')
         snap_path = snap_path.resolve(name + '.csv')
 
         // Get snapshot & Update time
@@ -126,7 +132,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
     // Single run specification fetching
     protected DataFrame fetch_processor_specification(DataFrame processor_url, Path snap_path) {
         String name = processor_url.get('name', 0)
-        name = name.replaceAll('[^a-zA-Z0-9 ]+', '').replace(' ', '_')
+        name = name.replaceAll('[^a-zA-Z0-9_ ]+', '').replace(' ', '_')
         snap_path = snap_path.resolve(name + '.csv')
 
         // Get snapshot & Update time
