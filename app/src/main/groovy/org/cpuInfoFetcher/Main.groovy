@@ -18,8 +18,10 @@ class Main {
 
     private static final Logger LOGGER = Logger.getLogger('Main')
 
-    static DataFrame specifications
-    static DataFrame selected_specifications
+    private static DataFrame specifications
+    private static DataFrame selected_specifications
+
+    private static final int days_until_outdated = 28
 
     // Mapping possible naming schemes for attributes
     static Map<String, String[]> specification_aliases = [
@@ -74,7 +76,7 @@ class Main {
     static void main(String[] args) {
         // Collecting Info
         LOGGER.entering('Main', 'main')
-        List<DataFrame> specificationsList = collectSpecifications(28)
+        List<DataFrame> specificationsList = collectSpecifications(this.days_until_outdated)
         LOGGER.info('Updated all specifications.')
 
         // Merging Info into big file
