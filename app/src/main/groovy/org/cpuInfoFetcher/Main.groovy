@@ -46,7 +46,7 @@ class Main {
 
         // Intel
         LOGGER.info('Fetching Intel specifications.')
-        IntelSpecificationsFetcher intelSF = new IntelSpecificationsFetcher(1, days_until_outdated)
+        IntelSpecificationsFetcher intelSF = new IntelSpecificationsFetcher(days_until_outdated, 1)
         specificationsList.add(intelSF.main())
 
         // AMD
