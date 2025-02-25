@@ -1,6 +1,6 @@
 package org.cpuinfofetcher
 
-import org.dflib.Dataframe
+import org.dflib.DataFrame
 
 /**
  * Adapts columns with units to be more uniform
@@ -23,9 +23,9 @@ class UnitsAdapter {
         // Extract units from values
         def new_df = DataFrame.byArrayRow(*new_col_names).appender()
         for (int i = 0; i < df.height(); i++) {
-            List<String> units = unit_mapping.get(old_col_names.get(i))
             List row = []
             for (int j = 0; j < df.width(); j++) {
+                List<String> units = unit_mapping.get(old_col_names.get(j))
                 String value = df.get(j, i)
                 if (units != null) {
                     for (String unit : units) {
