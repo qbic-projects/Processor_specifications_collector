@@ -59,18 +59,26 @@ This map is responsible for mapping the information in the parsed files to desir
 static Map<String, String[]> units_mapping = ['tdp': ['W', 'Watt']]
 ```
 This map tells the program, which units to expect in the respective columns. It then extracts the first value in the list to the top and removes them from the data. Example:
+
+<table>
+<tr><th>Before:</th><th></th><th>After:</th></tr>
+<tr><td>
+
 | tdp |
 |-----|
 | 1 W |
 | 2 Watt|
 | 3   |
 
-Will be transformed to:
+</td><td></td><td>
+
 |tdp (W)|
 |-------|
 | 1     |
 | 2     |
 | 3     |
+
+</td></tr> </table>
 
 There is currently **no support** to map scaled units to base units (e.g. 1 kW -> 1000 W).
 
