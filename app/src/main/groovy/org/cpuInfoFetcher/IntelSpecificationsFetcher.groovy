@@ -16,6 +16,7 @@ import org.jsoup.select.Elements
 import me.tongfei.progressbar.ProgressBar
 
 import org.dflib.DataFrame
+import org.dflib.Printers
 import org.dflib.JoinType
 import org.dflib.csv.Csv
 
@@ -32,14 +33,14 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
     ExecutorService threadPool = Executors.newFixedThreadPool(numThreads)
     Path snap_path
     HTMLScraper scraper = new HTMLScraper()
-    IntelSpecificationsFetcher(int numThreads, int days_until_update, Path snap_path=null) {
+    IntelSpecificationsFetcher(int days_until_update, int numThreads, Path snap_path=null) {
         this.numThreads = numThreads
         this.days_until_update = days_until_update
 
         // Add path for assets
         if (snap_path == null) {
             String script_path = getClass().protectionDomain.codeSource.location.path
-            this.snap_path = Paths.get(script_path, '..', '..', '..', 'resources', 'main', 'assets', 'Intel')
+            this.snap_path = Paths.get(script_path, '..', '..', '..', '..', 'snapshots', 'Intel')
                 .toAbsolutePath()
                 .normalize()
         } else {
@@ -136,9 +137,8 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         snap_path = snap_path.resolve(name + '.csv')
 
         // Get snapshot & Update time
-        def df = check_snap(snap_path, [])
+        DataFrame df = check_snap(snap_path, [])
         int days_since_update = check_last_update(df, ChronoUnit.DAYS)
-
         if (days_since_update > this.days_until_update || days_since_update < 0) {
             String url = processor_url.get('url', 0)
             // divs with id "spec" -> "divs containing "tech-section" in class

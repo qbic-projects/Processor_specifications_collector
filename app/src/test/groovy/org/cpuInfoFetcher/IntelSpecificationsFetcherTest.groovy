@@ -24,7 +24,7 @@ class IntelSpecificationsFetcherTest extends Specification  {
     private final Path tempPath = Files.createTempDirectory('tmpdir')
 
     private final IntelSpecificationsFetcher sf = new IntelSpecificationsFetcher(
-        1, 0, tempPath
+        0, 1, tempPath
     )
 
     private final HttpClient httpClient = HttpClient.newHttpClient()

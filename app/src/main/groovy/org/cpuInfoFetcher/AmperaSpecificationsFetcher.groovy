@@ -25,7 +25,7 @@ class AmperaSpecificationsFetcher extends SpecificationsFetcher {
 
         if (snap_path == null) {
             String script_path = getClass().protectionDomain.codeSource.location.path
-            this.snap_path = Paths.get(script_path, '..', '..', '..', 'resources', 'main', 'assets', 'Ampera')
+            this.snap_path = Paths.get(script_path, '..', '..', '..', '..', 'snapshots', 'Ampera')
                 .toAbsolutePath()
                 .normalize()
         } else {
