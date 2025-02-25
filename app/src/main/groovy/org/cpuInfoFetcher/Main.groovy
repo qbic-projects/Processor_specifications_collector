@@ -81,7 +81,7 @@ class Main {
 
         // Merging Info into big file
         DataFrame specifications = mergeSpecifications(specificationsList)
-        Csv.save(specifications, Paths.get('..', 'CPU_specifications.csv'))
+        Csv.save(specifications, Paths.get('..', 'specifications_out', 'specifications.csv'))
         this.specifications = specifications
         LOGGER.info('Merged all specifications.')
 
@@ -98,7 +98,7 @@ class Main {
         selected_specifications = ua.unitToColumnName(selected_specifications, this.units_mapping)
         LOGGER.info('Extracted units from data.')
 
-        Csv.save(selected_specifications, Paths.get('..', 'CPU_selected_specifications.csv'))
+        Csv.save(selected_specifications, Paths.get('..', 'specifications_out', 'specifications_filtered.csv'))
         this.selected_specifications = selected_specifications
         LOGGER.info('Saved final results.')
 
