@@ -15,8 +15,8 @@ import org.dflib.DataFrame
 
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
-import org.openqa.selenium.chrome.ChromeDriver
-import org.openqa.selenium.chrome.ChromeOptions
+import org.openqa.selenium.firefox.FirefoxDriver
+import org.openqa.selenium.firefox.FirefoxOptions
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.NoSuchElementException
 
@@ -82,21 +82,17 @@ class HTMLScraper {
 class InteractiveHTMLScraper extends HTMLScraper {
 
     Map<String, Object> preferences = [:]
-    ChromeOptions driverOptions = new ChromeOptions()
+    FirefoxOptions driverOptions = new FirefoxOptions()
     WebDriver driver
 
     InteractiveHTMLScraper(String download_directory) {
-        this.preferences.put('profile.default_content_settings.popups', 0)
-        this.preferences.put('download.default_directory', download_directory)
+        this.driverOptions.addPreference("browser.download.folderList", 2);
+        this.driverOptions.addPreference("browser.download.dir", download_directory)
+        this.driverOptions.addPreference("browser.download.useDownloadDir", true)
+        this.driverOptions.addPreference("general.useragent.override", this.userAgent)
+        this.driverOptions.addArguments('-headless')
 
-        this.driverOptions.setExperimentalOption('prefs', this.preferences)
-        this.driverOptions.addArguments('--headless=new')
-        this.driverOptions.addArguments('--disable-gpu')
-        this.driverOptions.addArguments('--window-size=1920,1080')
-        String uaStr = '--user-agent='  + this.userAgent
-        this.driverOptions.addArguments(uaStr)
-
-        this.driver = new ChromeDriver(driverOptions)
+        this.driver = new FirefoxDriver(driverOptions)
     }
 
     private void waitForPageLoad(WebDriver webDriver) {
@@ -116,6 +112,7 @@ class InteractiveHTMLScraper extends HTMLScraper {
             try {
                 WebElement reject_cookies_element = this.driver.findElement(By.xpath(xPath_reject))
                 reject_cookies_element.click()
+                TimeUnit.SECONDS.sleep(1)
             } catch ( NoSuchElementException e) {
                 logger.info('Cookie banner not displayed.')
             }
