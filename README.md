@@ -27,7 +27,13 @@ From the base directory of the project, run:
 ```
 
 ### Customization
-Before you run the program you might adapt the following maps:
+Before you run the program you might adapt the following:
+
+#### Days until update
+```groovy
+private static final int days_until_outdated = 28
+```
+When re-run, the program will check whether the first information written to the respective files is older than this and update accordingly.
 
 #### Mapping column aliases
 ```groovy
