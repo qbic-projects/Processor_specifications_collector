@@ -30,6 +30,7 @@ public class SpecificationsFetcher {
 
     // Check last snap of Dataframe
     DataFrame check_snap(Path path, List newColumns) {
+        path = path.toAbsolutePath().normalize()
         if (Files.isRegularFile(path)) {
             return Csv.load(path)
         } else if (newColumns != null && newColumns.size() > 0) {
