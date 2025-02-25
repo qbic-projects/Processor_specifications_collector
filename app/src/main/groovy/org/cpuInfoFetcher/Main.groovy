@@ -2,6 +2,8 @@ package org.cpuinfofetcher
 
 import java.util.logging.Logger
 
+import java.nio.file.Paths
+
 import org.dflib.DataFrame
 import org.dflib.JoinType
 import org.dflib.csv.Csv
