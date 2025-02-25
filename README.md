@@ -16,8 +16,8 @@ Collects specifications of Intel, AMD and Ampera processors and summarizes them 
 ## Usage
 ### Installation
 ```bash
-git clone <REPOSITORY_PATH>
-cd <REPOSITORY_NAME>
+git clone https://github.com/qbic-projects/Processor_specifications_collector.git
+cd Processor_specifications_collector
 ```
 
 ### Execution
