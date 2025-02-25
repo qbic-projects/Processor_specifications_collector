@@ -1,9 +1,6 @@
 /* groovylint-disable Indentation, MethodName, TrailingWhitespace */
 package org.cpuinfofetcher
 
-import java.nio.file.Path
-import java.nio.file.Files
-
 import org.dflib.DataFrame
 
 import spock.lang.Specification

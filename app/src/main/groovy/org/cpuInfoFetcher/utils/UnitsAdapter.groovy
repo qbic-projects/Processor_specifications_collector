@@ -1,7 +1,6 @@
 package org.cpuinfofetcher
 
-import org.dflib.DataFrame
-import org.dflib.Printers
+import org.dflib.Dataframe
 
 /**
  * Adapts columns with units to be more uniform
