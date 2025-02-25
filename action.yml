@@ -1,0 +1,27 @@
+name: 'Fetch processor specifications'
+description: 'Fetch the prcessor information with a workflow'
+
+outputs:
+  time:
+    description: 'The time the workflow was run'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: 21
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v4
+
+    - name: Run with Gradle
+      run: ./gradlew run
+    
+    - name: Copy files
+      run: cp ./specifications_out/* .
+
+branding:
+  icon: 'box'
+  color: 'gray-dark'
