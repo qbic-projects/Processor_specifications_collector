@@ -2,6 +2,7 @@ package org.cpuinfofetcher
 
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.nio.file.Files
 
 import java.time.temporal.ChronoUnit
 
@@ -40,12 +41,13 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         // Add path for assets
         if (snap_path == null) {
             String script_path = getClass().protectionDomain.codeSource.location.path
-            this.snap_path = Paths.get(script_path, '..', '..', '..', '..', 'snapshots', 'Intel')
+            this.snap_path = Paths.get(script_path, '..', '..', '..', '..', '..', 'snapshots', 'Intel')
                 .toAbsolutePath()
                 .normalize()
         } else {
             this.snap_path = snap_path
         }
+        Files.createDirectories(snap_path)
 
         this.progressBar = new ProgressBar('Waiting', 1)
     }

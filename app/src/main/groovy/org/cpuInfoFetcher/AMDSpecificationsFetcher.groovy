@@ -25,12 +25,13 @@ class AMDSpecificationsFetcher extends SpecificationsFetcher {
 
         String script_path = getClass().protectionDomain.codeSource.location.path
         if (snap_path == null) {
-        this.snap_path = Paths.get(script_path, '..', '..', '..', '..', 'snapshots', 'AMD')
-            .toAbsolutePath()
-            .normalize()
+            this.snap_path = Paths.get(script_path, '..', '..', '..', '..', '..', 'snapshots', 'AMD')
+                .toAbsolutePath()
+                .normalize()
         } else {
             this.snap_path = snap_path
         }
+        Files.createDirectories(snap_path)
 
         this.scraper = new InteractiveHTMLScraper(this.snap_path.toString())
     }

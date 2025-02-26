@@ -2,6 +2,7 @@ package org.cpuinfofetcher
 
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.nio.file.Files
 
 import java.time.temporal.ChronoUnit
 
@@ -25,12 +26,13 @@ class AmperaSpecificationsFetcher extends SpecificationsFetcher {
 
         if (snap_path == null) {
             String script_path = getClass().protectionDomain.codeSource.location.path
-            this.snap_path = Paths.get(script_path, '..', '..', '..', '..', 'snapshots', 'Ampera')
+            this.snap_path = Paths.get(script_path, '..', '..', '..', '..', '..', 'snapshots', 'Ampera')
                 .toAbsolutePath()
                 .normalize()
         } else {
             this.snap_path = snap_path
         }
+        Files.createDirectories(snap_path)
 
         this.scraper = new HTMLScraper()
     }
