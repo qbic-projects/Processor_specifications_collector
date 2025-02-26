@@ -32,7 +32,7 @@ class AmperaSpecificationsFetcher extends SpecificationsFetcher {
         } else {
             this.snap_path = snap_path
         }
-        Files.createDirectories(snap_path)
+        Files.createDirectories(this.snap_path)
 
         this.scraper = new HTMLScraper()
     }
