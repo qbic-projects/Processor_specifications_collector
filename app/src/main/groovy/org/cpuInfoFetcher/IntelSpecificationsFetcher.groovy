@@ -203,6 +203,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
     // Multible run specification fetching
     protected DataFrame fetch_specifications(DataFrame processor_urls, Path snap_path) {
         // Get calls
+        Files.createDirectories(snap_path.resolve('processor_infos'))
         List<FetchSpecification> callables = []
         for (int i = 0; i < processor_urls.height(); i++) {
             callables.add(
@@ -247,6 +248,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
     DataFrame main() {
         // Collect Processor family URLs
         this.progressBar = new ProgressBar('Fetching processor family URLs:', 1)
+        Files.createDirectories(this.snap_path.resolve('processor_family_urls'))
         DataFrame family_urls = fetch_processor_family_urls(
             'https://www.intel.com/content/www/us/en/ark.html',
             this.snap_path.resolve('processor_family_urls'),
@@ -254,6 +256,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
 
         // Collect processor URLs
         this.progressBar = new ProgressBar('Fetching processor URLs:', family_urls.height())
+        Files.createDirectories(this.snap_path.resolve('processor_urls'))
         DataFrame processor_urls = DataFrame
             .byArrayRow(*this.standard_cols, 'url')
             .appender()
