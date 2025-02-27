@@ -34,11 +34,11 @@ class AMDSpecificationsFetcherTest extends Specification {
             HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create('https://www.amd.com/en/products/specifications/processors.html'))
                 .build()
-        
+
         when:     
             HttpResponse<Void> response = this.httpClient.send(request, HttpResponse.BodyHandlers.discarding())
             int responseCode = response.statusCode()
-        
+
         then:
             responseCode != 404
     }

@@ -86,10 +86,10 @@ class InteractiveHTMLScraper extends HTMLScraper {
     WebDriver driver
 
     InteractiveHTMLScraper(String download_directory) {
-        this.driverOptions.addPreference("browser.download.folderList", 2);
-        this.driverOptions.addPreference("browser.download.dir", download_directory)
-        this.driverOptions.addPreference("browser.download.useDownloadDir", true)
-        this.driverOptions.addPreference("general.useragent.override", this.userAgent)
+        this.driverOptions.addPreference('browser.download.folderList', 2);
+        this.driverOptions.addPreference('browser.download.dir', download_directory)
+        this.driverOptions.addPreference('browser.download.useDownloadDir', true)
+        this.driverOptions.addPreference('general.useragent.override', this.userAgent)
         this.driverOptions.addArguments('-headless')
 
         this.driver = new FirefoxDriver(driverOptions)

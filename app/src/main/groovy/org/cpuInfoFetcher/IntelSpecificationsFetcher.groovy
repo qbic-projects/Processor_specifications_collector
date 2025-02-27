@@ -17,7 +17,6 @@ import org.jsoup.select.Elements
 import me.tongfei.progressbar.ProgressBar
 
 import org.dflib.DataFrame
-import org.dflib.Printers
 import org.dflib.JoinType
 import org.dflib.csv.Csv
 
