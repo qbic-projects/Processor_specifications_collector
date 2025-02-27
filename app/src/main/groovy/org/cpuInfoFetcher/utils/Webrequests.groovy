@@ -101,7 +101,7 @@ class InteractiveHTMLScraper extends HTMLScraper {
             ((JavascriptExecutor) webDriver).executeScript('return document.readyState') == 'complete'
         )
         // Wait for animations to complete
-        TimeUnit.SECONDS.sleep(1)
+        TimeUnit.SECONDS.sleep(2)
     }
 
     Document scrape(String request_url, String xPath_reject, String xPath_query) {
