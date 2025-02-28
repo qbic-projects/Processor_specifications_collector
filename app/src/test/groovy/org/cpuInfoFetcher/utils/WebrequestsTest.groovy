@@ -20,11 +20,11 @@ class WebrequestsTest extends Specification {
 
     def 'html scraping of standard website'() {
         setup:
-            this.scraper = new HTMLScraper()
+            scraper = new HTMLScraper()
             String xPath_query = './/a'
 
         when:
-            Element queryResults = this.scraper.scrape(this.exampleURL, xPath_query).first()
+            Element queryResults = scraper.scrape(this.exampleURL, xPath_query).first()
 
         then:
             queryResults.text() == 'More information...'
@@ -32,12 +32,12 @@ class WebrequestsTest extends Specification {
 
     def 'scraping table'() {
         setup:
-            this.scraper = new HTMLScraper()
+            scraper = new HTMLScraper()
             String xPath_query = './/table'
 
         when:
-            Element table = this.scraper.scrape(this.exampleTableURL, xPath_query).first()
-            DataFrame df = this.scraper.parse_table(table)
+            Element table = scraper.scrape(this.exampleTableURL, xPath_query).first()
+            DataFrame df = scraper.parse_table(table)
 
         then:
             df.getColumnsIndex().toArray() == ['Team', 'Sport', 'City']
@@ -46,16 +46,19 @@ class WebrequestsTest extends Specification {
 
     def 'interactive html scraping of standard website'() {
         setup:
-            this.scraper = new InteractiveHTMLScraper('.')
+            scraper = new InteractiveHTMLScraper('.')
             String xPath_reject = null
             String xPath_query = './/a'
 
         when:
-            Document queryResults = this.scraper.scrape(this.exampleURL, xPath_reject, xPath_query)
+            Document queryResults = scraper.scrape(this.exampleURL, xPath_reject, xPath_query)
             Element firstHeader = queryResults.selectXpath('.//div[@class="help-article"]/*').first()
 
         then:
             firstHeader.text() == 'Example Domains'
+
+        cleanup:
+            scraper.quit()
     }
 
 }

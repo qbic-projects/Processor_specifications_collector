@@ -2,7 +2,6 @@ package org.cpuinfofetcher
 
 import org.dflib.DataFrame
 import org.dflib.JoinType
-import org.dflib.Printers
 
 /**
  * Summarize extracted information into one file
@@ -24,7 +23,7 @@ class CPUSpecificationsSummarizer {
         specification_aliases.each { specification_key, aliases ->
             for (String alias : aliases) {
                 for (String col_name : df.getColumnsIndex().toArray()) {
-                    if (alias.toLowerCase() == col_name.toLowerCase() && df.get(col_name, 0) != null) {
+                    if (alias.toLowerCase() == col_name.toLowerCase() && df.get(col_name, 0)) {
                         matched_elements.put(specification_key, df.get(col_name, 0))
                     }
                 }
@@ -42,7 +41,7 @@ class CPUSpecificationsSummarizer {
         for (int i = 0; i < df.height(); i++) {
             DataFrame row = df.rows(i).select()
             Map<String, String> matched_elements = match_column_aliases(row, specification_aliases)
-            if (discard_unmatched && matched_elements.values().toArray().contains(null)) {
+            if (discard_unmatched && matched_elements.containsValue(null)) {
                 continue
             }
             DataFrame selected_info = DataFrame

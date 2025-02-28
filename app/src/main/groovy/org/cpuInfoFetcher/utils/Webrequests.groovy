@@ -122,8 +122,11 @@ class InteractiveHTMLScraper extends HTMLScraper {
         element.click()
 
         Document doc = Jsoup.parse(this.driver.getPageSource())
-        driver.quit()
         return doc
+    }
+
+    void quit() {
+        this.driver.quit()
     }
 
 }

@@ -31,8 +31,8 @@ class Main {
         'source': ['source'],
         'tdp': [
             'SDP', 'Scenario Design Power',
-            'Processor Base Power', 'USAGE POWER (W)', 'Default TDP',
-            'tdp', 'thermal design power',
+            'Processor Base Power', 'USAGE POWER (W)', 'AMD Configurable TDP (cTDP)', 'Default TDP',
+            'tdp', 'thermal design power', 'Thermal Design Power (TDP)',
         ],
         'cores': ['Total Cores', '# of CPU Cores', 'cores'],
         'threads': ['cores', 'Total Cores', '# of CPU Cores', 'Total Threads', '# of Threads', 'threads']

@@ -29,7 +29,7 @@ class UnitsAdapter {
                 String value = df.get(j, i)
                 if (units != null) {
                     for (String unit : units) {
-                        value = value.replaceAll("${units.get(0)}\$", '').trim()
+                        value = value.replaceAll("${units.get(0)}", '').replaceAll(' ', '')
                     }
                 }
                 row.add(value)

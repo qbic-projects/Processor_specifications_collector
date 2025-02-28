@@ -8,6 +8,7 @@ import java.nio.file.StandardCopyOption
 import java.time.temporal.ChronoUnit
 
 import org.dflib.DataFrame
+import org.dflib.JoinType
 import org.dflib.csv.Csv
 
 /**
@@ -37,10 +38,7 @@ class AMDSpecificationsFetcher extends SpecificationsFetcher {
     }
 
 
-    DataFrame fetch_processor_specifications(String url, Path snap_path) {
-        Path downloadPath = snap_path.resolve('Processor Specifications.csv')
-        snap_path = snap_path.resolve('AMD_processor_specifications.csv')
-
+    DataFrame fetch_processor_specifications(String url, Path snap_path, Path downloadPath) {
         // Get snapshot & Update time
         def df = check_snap(snap_path, [])
         int days_since_update = check_last_update(df, ChronoUnit.DAYS)
@@ -65,11 +63,45 @@ class AMDSpecificationsFetcher extends SpecificationsFetcher {
         return df
     }
 
+    DataFrame fetch_all_specifications(String base_url, Map<String, String> specification_sites, Path snap_path) {
+        DataFrame specifications = DataFrame.empty()
+        specification_sites.each { site, downloadFile ->
+            String url = base_url + site + '.html'
+
+            // Define paths
+            Path downloadPath = snap_path.resolve(downloadFile)
+            Path file_snap_path = snap_path.resolve("AMD_${String.join('_', *site.split('-'))}.csv")
+
+            // get specifications
+            specifications = specifications.vConcat(
+                JoinType.full,
+                fetch_processor_specifications(url, file_snap_path, downloadPath)
+            )
+        }
+
+        Csv.save(specifications, snap_path.resolve('AMD_all_specifications.csv'))
+
+        return specifications
+    }
+
     DataFrame main() {
-        DataFrame specifications = fetch_processor_specifications(
-            'https://www.amd.com/en/products/specifications/processors.html',
-            snap_path
+        String base_url = 'https://www.amd.com/en/products/specifications/'
+        Map<String, String> processor_specification_sites = [
+            'processors': 'Processor Specifications.csv',
+            'server-processor': 'Server Processor Specifications.csv',
+            'accelerators': 'Accelerator Specifications.csv',
+            'embedded': 'Embedded Processor Specifications.csv',
+            'professional-graphics': 'Professional Graphics Specifications.csv',
+            'graphics': 'Graphics Specifications.csv',
+        ]
+
+        DataFrame specifications = fetch_all_specifications(
+            base_url,
+            processor_specification_sites,
+            this.snap_path,
         )
+
+        this.scraper.quit()
 
         return specifications
     }

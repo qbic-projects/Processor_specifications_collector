@@ -48,7 +48,11 @@ class AMDSpecificationsFetcherTest extends Specification {
             String url = 'https://www.amd.com/en/products/specifications/processors.html'
 
         when:
-            this.sf.fetch_processor_specifications(url, this.tempPath)
+            this.sf.fetch_processor_specifications(
+                url,
+                this.tempPath.resolve('AMD_processor_specifications.csv'),
+                this.tempPath.resolve('Processor Specifications.csv')
+            )
             DataFrame specifications = Csv.load(this.tempPath.resolve('AMD_processor_specifications.csv'))
 
         then:
