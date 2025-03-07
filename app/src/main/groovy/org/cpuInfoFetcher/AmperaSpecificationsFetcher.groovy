@@ -39,7 +39,7 @@ class AmperaSpecificationsFetcher extends SpecificationsFetcher {
 
 
     DataFrame fetch_processor_specifications(String url, Path snap_path) {
-        snap_path = snap_path.resolve('Ampera_processor_specifications.csv')
+        snap_path = snap_path.resolve('Ampera_cpu_specifications.csv')
 
         // Get snapshot & Update time
         def df = check_snap(snap_path, [])

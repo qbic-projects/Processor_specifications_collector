@@ -224,7 +224,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         this.threadPool.shutdown()
 
         // Extract and save results
-        snap_path = snap_path.resolve('Intel_processor_specifications.csv')
+        snap_path = snap_path.resolve('Intel_cpu_specifications.csv')
         DataFrame specifications = DataFrame.empty()
         for (Future future : futures) {
             // Extract df from future

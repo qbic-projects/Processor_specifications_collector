@@ -63,8 +63,10 @@ class AMDSpecificationsFetcher extends SpecificationsFetcher {
         return df
     }
 
-    DataFrame fetch_all_specifications(String base_url, Map<String, String> specification_sites, Path snap_path) {
-        DataFrame specifications = DataFrame.empty()
+    Map<String,DataFrame> fetch_all_specifications(
+        String base_url, Map<String, String> specification_sites, Path snap_path
+        ) {
+        Map<String,DataFrame> specifications = ['cpu': DataFrame.empty(), 'gpu': DataFrame.empty()]
         specification_sites.each { site, downloadFile ->
             String url = base_url + site + '.html'
 
@@ -73,13 +75,24 @@ class AMDSpecificationsFetcher extends SpecificationsFetcher {
             Path file_snap_path = snap_path.resolve("AMD_${String.join('_', *site.split('-'))}.csv")
 
             // get specifications
-            specifications = specifications.vConcat(
-                JoinType.full,
-                fetch_processor_specifications(url, file_snap_path, downloadPath)
+            String processor_type
+            if (site.contains('graphics')) {
+                processor_type = 'gpu'
+            } else {
+                processor_type = 'cpu'
+            }
+            specifications.replace(
+                processor_type,
+                specifications.get(processor_type).vConcat(
+                    JoinType.full,
+                    fetch_processor_specifications(url, file_snap_path, downloadPath)
+                )
             )
         }
 
-        Csv.save(specifications, snap_path.resolve('AMD_all_specifications.csv'))
+        specifications.each { type, df ->
+            Csv.save(df, snap_path.resolve("AMD_${type}_specifications.csv"))
+        }
 
         return specifications
     }
@@ -95,7 +108,7 @@ class AMDSpecificationsFetcher extends SpecificationsFetcher {
             'graphics': 'Graphics Specifications.csv',
         ]
 
-        DataFrame specifications = fetch_all_specifications(
+        Map<String, DataFrame> specifications = fetch_all_specifications(
             base_url,
             processor_specification_sites,
             this.snap_path,
@@ -103,7 +116,7 @@ class AMDSpecificationsFetcher extends SpecificationsFetcher {
 
         this.scraper.quit()
 
-        return specifications
+        return specifications.get('cpu')
     }
 
 }
