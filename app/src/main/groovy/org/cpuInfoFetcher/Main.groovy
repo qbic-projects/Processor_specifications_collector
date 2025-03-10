@@ -21,7 +21,7 @@ class Main {
     private static DataFrame specifications
     private static DataFrame selected_specifications
 
-    private static final int days_until_outdated = 28
+    private static int days_until_outdated
 
     // Mapping possible naming schemes for attributes
     static Map<String, String[]> specification_aliases = [
@@ -74,6 +74,8 @@ class Main {
     }
 
     static void main(String[] args) {
+        this.days_until_outdated = args.length > 0 ? Integer.parseInt(args[0]) : 28
+
         // Collecting Info
         LOGGER.entering('Main', 'main')
         List<DataFrame> specificationsList = collectSpecifications(this.days_until_outdated)
