@@ -46,7 +46,7 @@ class AMDSpecificationsFetcher extends SpecificationsFetcher {
         if (days_since_update > this.days_until_update || days_since_update < 0) {
             // divs with class "products processors" -> "a" elements with hrefs containing "processor"
             String xPath_query = './/button[contains(@class, "buttons-csv")]'
-            String xPath_reject = './/button[@id=\"onetrust-reject-all-handler\"]'
+            String xPath_reject = './/button[text()=\"Accept Cookies\"]'
 
             this.scraper.scrape(url, xPath_reject, xPath_query)
 
