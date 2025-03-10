@@ -49,7 +49,7 @@ class AmperaSpecificationsFetcherTest extends Specification {
 
         when:
             this.sf.fetch_processor_specifications(url, this.tempPath)
-            DataFrame specifications = Csv.load(this.tempPath.resolve('Ampera_processor_specifications.csv'))
+            DataFrame specifications = Csv.load(this.tempPath.resolve('Ampera_cpu_specifications.csv'))
 
         then:
             specifications.getColumnsIndex().toArray() == [
