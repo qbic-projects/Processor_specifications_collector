@@ -112,7 +112,6 @@ class InteractiveHTMLScraper extends HTMLScraper {
     private void waitForClickableElement(WebDriver webDriver, String xPath) {
         Wait<WebDriver> wait = new WebDriverWait(webDriver, Duration.ofSeconds(2))
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xPath)))
-        logger.info("${xPath} now clickable.")
     }
 
     Document scrape(String request_url, String xPath_reject, String xPath_query) {
@@ -123,7 +122,6 @@ class InteractiveHTMLScraper extends HTMLScraper {
             try {
                 WebElement reject_cookies_element = this.driver.findElement(By.xpath(xPath_reject))
                 reject_cookies_element.click()
-                logger.info('Clicked cookie banner.')
             } catch ( NoSuchElementException e) {
                 logger.info('Cookie banner not displayed.')
             }
