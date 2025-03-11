@@ -20,17 +20,11 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Install Firefox
-        run: |
-          sudo apt remove -y firefox
-          sudo add-apt-repository ppa:mozillateam/ppa
-          sudo apt update && sudo apt install -y firefox-esr
-
-      - name: Install Gecko
-        run: |
-          sudo mkdir /opt/geckodriver
-          curl -s -L "https://github.com/mozilla/geckodriver/releases/download/v0.36.0/geckodriver-v0.36.0-linux64.tar.gz" | tar -xzvf - -C /opt/geckodriver
-          echo 'export PATH="/opt/geckodriver:$PATH"' >> ~/.bashrc
+      - name: Setup Firefox
+        uses: browser-actions/setup-firefox@v1
+      
+      - name: Setup Gecko Driver
+        uses: browser-actions/setup-geckodriver@latest
 
       - name: Test with Gradle
         run: |
