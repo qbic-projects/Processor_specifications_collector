@@ -1,0 +1,43 @@
+name: Test CPU info fetcher
+
+# Before using this workflow, you have to go to your repository / organisation / enterprise account and check:
+# Settings -> Actions -> General -> "Allow GitHub Actions to create and approve pull requests"
+
+on:
+  #schedule: # Runs on the 1st of each month
+  #  - cron: '0 0 1 * *'
+  push:
+    branches:
+      - '*'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Install Firefox
+        run: |
+          sudo apt remove -y firefox
+          sudo add-apt-repository ppa:mozillateam/ppa
+          sudo apt update && sudo apt install -y firefox-esr
+
+      - name: Install Gecko
+        run: |
+          sudo mkdir /opt/geckodriver
+          curl -s -L "https://github.com/mozilla/geckodriver/releases/download/v0.36.0/geckodriver-v0.36.0-linux64.tar.gz" | tar -xzvf - -C /opt/geckodriver
+          echo 'export PATH="/opt/geckodriver:$PATH"' >> ~/.bashrc
+
+      - name: Test with Gradle
+        run: |
+          cd Processor_specifications_collector
+          ./gradlew test -i
