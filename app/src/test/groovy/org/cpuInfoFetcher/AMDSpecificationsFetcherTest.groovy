@@ -46,18 +46,20 @@ class AMDSpecificationsFetcherTest extends Specification {
     def 'check processor specifications fetching'() {
         setup:
             String url = 'https://www.amd.com/en/products/specifications/processors.html'
+            String intended_usage = 'local'
 
         when:
             this.sf.fetch_processor_specifications(
                 url,
                 this.tempPath.resolve('AMD_processor_specifications.csv'),
-                this.tempPath.resolve('Processor Specifications.csv')
+                this.tempPath.resolve('Processor Specifications.csv'),
+                intended_usage
             )
             DataFrame specifications = Csv.load(this.tempPath.resolve('AMD_processor_specifications.csv'))
 
         then:
             specifications.getColumnsIndex().toArray() == [
-                'time', 'source', 'name', 'Family', 'Series', 'Form Factor', '# of CPU Cores', '# of Threads',
+                'time', 'source', 'intended_usage', 'name', 'Family', 'Series', 'Form Factor', '# of CPU Cores', '# of Threads',
                 'Max. Boost Clock', 'Base Clock', 'L2 Cache', 'L3 Cache', 'Default TDP', 'L1 Cache',
                 'AMD Configurable TDP (cTDP)', 'Processor Technology for CPU Cores', 'Unlocked for Overclocking',
                 'CPU Socket', 'Thermal Solution (PIB)', 'Recommended Cooler', 'Thermal Solution (MPK)',

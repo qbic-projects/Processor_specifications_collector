@@ -54,7 +54,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
 
     // Extract processor family urls from main ark
     protected DataFrame fetch_processor_family_urls(String url, Path snap_path) {
-        snap_path = snap_path.resolve('Intel_family_info.csv')
+        snap_path = snap_path.resolve('Intel_family_info.csv') // sets path for saving the snapshot
 
         // Get snapshot & Update time
         def df = check_snap(snap_path, [*this.standard_cols, 'url'])
@@ -68,6 +68,9 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
             // Make data matrix
             df = DataFrame.byArrayRow(df.getColumnsIndex()).appender()
             for (Element element : elements) {
+                // if element.ownText() contains specific name (use map that contains e.g. 'Intel® Core™ Ultra Processors' -> 'local') 
+                // for each element add row to new column called "intended usage" to the DataFrame
+                // the intended usage infomation has to be passed to the subsequent methods so that it appears in the final dataframe  
                 df.append(
                     element.ownText(),
                     element.ownText(),

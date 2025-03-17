@@ -51,6 +51,7 @@ public class SpecificationsFetcher {
         return -1
     }
 
+    // Method to add time, source and intended use metadata to DataFrame
     DataFrame add_metadata(DataFrame df, String source) {
         def meta_df = DataFrame.byArrayRow('time', 'source').appender()
         for (int i = 0; i < df.height(); i++) {
@@ -64,6 +65,27 @@ public class SpecificationsFetcher {
         return meta_df.hConcat(df).colsExcept(c -> c.endsWith('_')).select()
     }
 
+    // Method to add time, source, and intended use metadata to DataFrame
+    DataFrame add_metadata(DataFrame df, String source, String intendedUsage) {
+        // Create a new DataFrame for time and source metadata
+        def meta_df = DataFrame.byArrayRow('time', 'source', 'intended_usage').appender()
+        
+        // Append metadata values for each row in the original DataFrame
+        for (int i = 0; i < df.height(); i++) {
+            meta_df.append(
+                timeFormat.format(this.localTime.now()),  
+                source,                                   
+                intendedUsage                             
+            )
+        }
+        meta_df = meta_df.toDataFrame()
+
+        // Concatenate the added columns with the original DataFrame
+        return meta_df.hConcat(df).colsExcept(c -> c.endsWith('_')).select()
+    }
+
+
+    // Method that removes a Byte Order Mark (BOM) from the beginning of file if it exists
     void removeBOM(Path path){
         byte[] bytes = Files.readAllBytes(path)
         String content = new String(bytes, StandardCharsets.UTF_8)
