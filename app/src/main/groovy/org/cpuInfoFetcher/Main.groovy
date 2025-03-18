@@ -73,6 +73,10 @@ class Main {
         return specifications
     }
 
+    static DataFrame removeDuplicates(DataFrame specifications) {
+        return specifications.rows().selectUnique('name')
+    }
+
     static void main(String[] args) {
         this.days_until_outdated = args.length > 0 ? Integer.parseInt(args[0]) : 28
 
@@ -83,6 +87,7 @@ class Main {
 
         // Merging Info into big file
         DataFrame specifications = mergeSpecifications(specificationsList)
+        specifications = removeDuplicates(specifications)
         Csv.save(specifications, Paths.get('..', 'specifications_out', 'specifications.csv'))
         this.specifications = specifications
         LOGGER.info('Merged all specifications.')
