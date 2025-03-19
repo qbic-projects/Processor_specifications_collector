@@ -25,7 +25,7 @@ public class SpecificationsFetcher {
 
     // DataFrame construction parameters
     int days_until_update = 28
-    List<String> standard_cols = ['product_id', 'name', 'time', 'source']
+    List<String> standard_cols = ['product_id', 'name', 'time', 'source', 'intended_usage']
 
 
     // Check last snap of Dataframe
@@ -51,25 +51,11 @@ public class SpecificationsFetcher {
         return -1
     }
 
-    // Method to add time, source and intended use metadata to DataFrame
-    DataFrame add_metadata(DataFrame df, String source) {
-        def meta_df = DataFrame.byArrayRow('time', 'source').appender()
-        for (int i = 0; i < df.height(); i++) {
-            meta_df.append(
-                timeFormat.format(this.localTime.now()),
-                source
-            )
-        }
-        meta_df = meta_df.toDataFrame()
-
-        return meta_df.hConcat(df).colsExcept(c -> c.endsWith('_')).select()
-    }
-
     // Method to add time, source, and intended use metadata to DataFrame
-    DataFrame add_metadata(DataFrame df, String source, String intendedUsage) {
+    DataFrame add_metadata(DataFrame df, String source, String intendedUsage = "unknown") {
         // Create a new DataFrame for time and source metadata
         def meta_df = DataFrame.byArrayRow('time', 'source', 'intended_usage').appender()
-        
+
         // Append metadata values for each row in the original DataFrame
         for (int i = 0; i < df.height(); i++) {
             meta_df.append(
@@ -83,7 +69,6 @@ public class SpecificationsFetcher {
         // Concatenate the added columns with the original DataFrame
         return meta_df.hConcat(df).colsExcept(c -> c.endsWith('_')).select()
     }
-
 
     // Method that removes a Byte Order Mark (BOM) from the beginning of file if it exists
     void removeBOM(Path path){

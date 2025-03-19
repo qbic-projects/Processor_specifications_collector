@@ -29,6 +29,7 @@ class Main {
         'name': ['name'],
         'time': ['time'],
         'source': ['source'],
+        'intended_usage': ['intended_usage'],
         'tdp': [
             'SDP', 'Scenario Design Power',
             'Processor Base Power', 'USAGE POWER (W)', 'AMD Configurable TDP (cTDP)', 'Default TDP',

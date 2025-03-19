@@ -53,7 +53,7 @@ class AmperaSpecificationsFetcherTest extends Specification {
 
         then:
             specifications.getColumnsIndex().toArray() == [
-                'time', 'source' , 'name', 'CORES', 'SUSTAINED FREQUENCY (GHz)', 'USAGE POWER (W)', 'product_id'
+                'time', 'source' , 'intended_usage', 'name', 'CORES', 'SUSTAINED FREQUENCY (GHz)', 'USAGE POWER (W)', 'product_id'
             ]
     }
 }

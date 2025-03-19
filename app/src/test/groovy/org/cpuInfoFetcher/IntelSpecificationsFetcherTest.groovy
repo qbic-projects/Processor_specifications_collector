@@ -47,14 +47,20 @@ class IntelSpecificationsFetcherTest extends Specification  {
     def 'check family url fetching'() {
         setup:
             String url = 'https://www.intel.com/content/www/us/en/ark.html'
+            Map<String, String> intended_usage_map = [
+            'Intel® Core™ Ultra'            : 'local',
+            'Intel® Core™'                  : 'local',
+            'some other processor family'   : 'something',
+ 
+            ]
 
         when:
-            this.sf.fetch_processor_family_urls(url, this.tempPath)
+            this.sf.fetch_processor_family_urls(url, this.tempPath, intended_usage_map)
             DataFrame specifications = Csv.load(this.tempPath.resolve('Intel_family_info.csv'))
 
         then:
             specifications.getColumnsIndex().toArray() == [
-                'product_id', 'name', 'time', 'source', 'url'
+                'product_id', 'name', 'time', 'source', 'intended_usage', 'url'
             ]
     }
 
@@ -76,10 +82,11 @@ class IntelSpecificationsFetcherTest extends Specification  {
     def 'check processor url fetching'() {
         setup:
             DataFrame df = DataFrame
-            .foldByRow('url', 'name')
+            .foldByRow('url', 'name', 'intended_usage')
             .of(
                 'https://www.intel.com/content/www/us/en/ark/products/series/232165/intel-processor-u-series.html',
-                'Intel® Processor U-series'
+                'Intel® Processor U-series',
+                'local'
             )
 
         when:
@@ -88,7 +95,7 @@ class IntelSpecificationsFetcherTest extends Specification  {
 
         then:
             specifications.getColumnsIndex().toArray() == [
-                'product_id', 'name', 'time', 'source', 'url'
+                'product_id', 'name', 'time', 'source', 'intended_usage', 'url'
             ]
     }
 
@@ -110,11 +117,12 @@ class IntelSpecificationsFetcherTest extends Specification  {
     def 'check processor specifications fetching'() {
         setup:
             DataFrame df = DataFrame
-                .foldByRow('product_id', 'url', 'name')
+                .foldByRow('product_id', 'url', 'name', 'intended_usage')
                 .of(
                     '0',
                     'https://www.intel.com/content/www/us/en/products/sku/35635/intel-atom-processor-230-512k-cache-1-60-ghz-533-mhz-fsb/specifications.html',
-                    'some_name'
+                    'some_name',
+                    'local'
                 )
 
         when:
@@ -123,7 +131,7 @@ class IntelSpecificationsFetcherTest extends Specification  {
 
         then:
             specifications.getColumnsIndex().toArray() == [
-                'product_id', 'name', 'time', 'source', 'Product Collection', 'Code Name', 'Vertical Segment',
+                'product_id', 'name', 'time', 'source', 'intended_usage', 'Product Collection', 'Code Name', 'Vertical Segment',
                 'Processor Number', 'Lithography', 'Total Cores', 'Processor Base Frequency', 'Cache', 'Bus Speed',
                 'FSB Parity', 'TDP', 'VID Voltage Range', 'Marketing Status', 'Launch Date', 'Servicing Status',
                 'Embedded Options Available', 'Sockets Supported', 'TCASE', 'Package Size', 'Processing Die Size',

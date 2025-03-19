@@ -78,8 +78,8 @@ public class SpecificationsFetcherTest extends Specification {
             assertEqualDF(
                 df,
                 DataFrame
-                    .foldByRow('time', 'source', 'place')
-                    .of(now, 'some_source', 'Milkyway')
+                    .foldByRow('time', 'source', 'intended_usage', 'place')
+                    .of(now, 'some_source', 'unknown', 'Milkyway')
             )
     }
 

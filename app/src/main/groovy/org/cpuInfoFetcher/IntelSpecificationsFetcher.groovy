@@ -53,7 +53,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
 
 
     // Extract processor family urls from main ark
-    protected DataFrame fetch_processor_family_urls(String url, Path snap_path) {
+    protected DataFrame fetch_processor_family_urls(String url, Path snap_path, Map<String, String> intended_usage_map) {
         snap_path = snap_path.resolve('Intel_family_info.csv') // sets path for saving the snapshot
 
         // Get snapshot & Update time
@@ -68,15 +68,15 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
             // Make data matrix
             df = DataFrame.byArrayRow(df.getColumnsIndex()).appender()
             for (Element element : elements) {
-                // if element.ownText() contains specific name (use map that contains e.g. 'Intel® Core™ Ultra Processors' -> 'local') 
-                // for each element add row to new column called "intended usage" to the DataFrame
-                // the intended usage infomation has to be passed to the subsequent methods so that it appears in the final dataframe  
+                String processor_family_name = element.ownText()
+                String intended_usage = intended_usage_map.find { key, _ -> processor_family_name.contains(key) }?.value ?: 'unknown'
                 df.append(
-                    element.ownText(),
-                    element.ownText(),
+                    processor_family_name,
+                    processor_family_name,
                     timeFormat.format(this.localTime.now()),
                     url,
-                    element.attr('abs:href')
+                    intended_usage,
+                    element.attr('abs:href'),
                 )
             }
             df = df.toDataFrame()
@@ -119,6 +119,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
                         link_element.ownText(),
                         timeFormat.format(this.localTime.now()),
                         url,
+                        family_url.get("intended_usage", 0),
                         link_element.attr('abs:href'),
                     )
                 }
@@ -137,6 +138,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
     // Single run specification fetching
     protected DataFrame fetch_processor_specification(DataFrame processor_url, Path snap_path) {
         String name = processor_url.get('name', 0)
+        String url = processor_url.get('url', 0)
         name = name.replaceAll('[^a-zA-Z0-9_ ]+', '').replace(' ', '_')
         snap_path = snap_path.resolve(name + '.csv')
 
@@ -144,7 +146,6 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         DataFrame df = check_snap(snap_path, [])
         int days_since_update = check_last_update(df, ChronoUnit.DAYS)
         if (days_since_update > this.days_until_update || days_since_update < 0) {
-            String url = processor_url.get('url', 0)
             // divs with id "spec" -> "divs containing "tech-section" in class
             String xPath_query = './/div[contains(@id, "spec")]//div[contains(@class, "tech-section")]'
             Elements elements = this.scraper.scrape(url, xPath_query)
@@ -170,9 +171,10 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
                 .foldByColumn(*this.standard_cols, *labels)
                 .of(
                     processor_url.get('product_id', 0),
-                    processor_url.get('name', 0),
+                    name,
                     timeFormat.format(this.localTime.now()),
                     url,
+                    processor_url.get('intended_usage', 0),
                     *data
                 )
 
@@ -248,12 +250,25 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
 
     // Main (invoker)
     DataFrame main() {
+
+        // Define intended usage mapping (order is important!)
+        Map<String, String> intended_usage_map = [
+        'Intel® Core™ Ultra'    : 'local',
+        'Intel® Core™'          : 'local',
+        'Intel® Xeon®'          : 'server',
+        'Intel Atom®'           : 'local',
+        'Intel® Pentium®'       : 'local',
+        'Intel® Celeron®'       : 'local',
+        'Intel®'                : 'local',
+        ]
+
         // Collect Processor family URLs
         this.progressBar = new ProgressBar('Fetching processor family URLs:', 1)
         Files.createDirectories(this.snap_path.resolve('processor_family_urls'))
         DataFrame family_urls = fetch_processor_family_urls(
             'https://www.intel.com/content/www/us/en/ark.html',
             this.snap_path.resolve('processor_family_urls'),
+            intended_usage_map
         )
 
         // Collect processor URLs
@@ -263,13 +278,14 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
             .byArrayRow(*this.standard_cols, 'url')
             .appender()
             .toDataFrame()
+        // Iterate over family urls and collect processor urls
         for (int i = 0; i < family_urls.height(); i++) {
             DataFrame family_url = family_urls.rows(i).select()
+
             processor_urls = processor_urls.vConcat(
                 fetch_processor_urls(
                     family_url,
-                    this.snap_path.resolve('processor_urls'),
-                )
+                    this.snap_path.resolve('processor_urls')                )
             )
         }
 
