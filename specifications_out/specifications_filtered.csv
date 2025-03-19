@@ -453,7 +453,6 @@ product_id,name,time,source,tdp (W),cores,threads
 236849,Intel® Core™ Ultra 9 Processor 185H,2025-02-28 13:16:56,https://www.intel.com/content/www/us/en/products/sku/236849/intel-core-ultra-9-processor-185h-24m-cache-up-to-5-10-ghz/specifications.html,45,16,22
 226449,Intel® Pentium® Gold Processor 8500,2025-02-28 13:16:57,https://www.intel.com/content/www/us/en/products/sku/226449/intel-pentium-gold-processor-8500-8m-cache-up-to-4-40-ghz/specifications.html,9,5,6
 226262,Intel® Pentium® Gold Processor 8505,2025-02-28 13:16:58,https://www.intel.com/content/www/us/en/products/sku/226262/intel-pentium-gold-processor-8505-8m-cache-up-to-4-40-ghz/specifications.html,15,5,6
-226262,Intel® Pentium® Gold Processor 8505,2025-02-28 13:16:58,https://www.intel.com/content/www/us/en/products/sku/226262/intel-pentium-gold-processor-8505-8m-cache-up-to-4-40-ghz/specifications.html,15,5,6
 219435,Intel® Pentium® Gold G7400 Processor,2025-02-28 13:16:58,https://www.intel.com/content/www/us/en/products/sku/219435/intel-pentium-gold-g7400-processor-6m-cache-3-70-ghz/specifications.html,46,2,4
 196311,Intel® Pentium® Gold G7400E Processor,2025-02-28 13:16:59,https://www.intel.com/content/www/us/en/products/sku/196311/intel-pentium-gold-g7400e-processor-6m-cache-3-60-ghz/specifications.html,46,2,4
 219436,Intel® Pentium® Gold G7400T Processor,2025-02-28 13:16:59,https://www.intel.com/content/www/us/en/products/sku/219436/intel-pentium-gold-g7400t-processor-6m-cache-3-10-ghz/specifications.html,35,2,4
@@ -646,7 +645,6 @@ product_id,name,time,source,tdp (W),cores,threads
 27479,Intel® Pentium® 4 Processor 631 supporting HT Technology,2025-02-28 13:18:02,https://www.intel.com/content/www/us/en/products/sku/27479/intel-pentium-4-processor-631-supporting-ht-technology-2m-cache-3-00-ghz-800-mhz-fsb/specifications.html,86,1,1
 27481,Intel® Pentium® 4 Processor 641 supporting HT Technology,2025-02-28 13:18:02,https://www.intel.com/content/www/us/en/products/sku/27481/intel-pentium-4-processor-641-supporting-ht-technology-2m-cache-3-20-ghz-800-mhz-fsb/specifications.html,86,1,1
 27485,Intel® Pentium® 4 Processor 661 supporting HT Technology,2025-02-28 13:18:02,https://www.intel.com/content/www/us/en/products/sku/27485/intel-pentium-4-processor-661-supporting-ht-technology-2m-cache-3-60-ghz-800-mhz-fsb/specifications.html,86,1,1
-42114,Intel® Pentium® D Processor 920,2025-02-28 13:18:03,https://www.intel.com/content/www/us/en/products/sku/42114/intel-pentium-d-processor-920-4m-cache-2-8-ghz-800-mhz-fsb/specifications.html,95,2,2
 42114,Intel® Pentium® D Processor 920,2025-02-28 13:18:03,https://www.intel.com/content/www/us/en/products/sku/42114/intel-pentium-d-processor-920-4m-cache-2-8-ghz-800-mhz-fsb/specifications.html,95,2,2
 27518,Intel® Pentium® D Processor 930,2025-02-28 13:18:03,https://www.intel.com/content/www/us/en/products/sku/27518/intel-pentium-d-processor-930-4m-cache-3-00-ghz-800-mhz-fsb/specifications.html,95,2,2
 27519,Intel® Pentium® D Processor 940,2025-02-28 13:18:03,https://www.intel.com/content/www/us/en/products/sku/27519/intel-pentium-d-processor-940-4m-cache-3-20-ghz-800-mhz-fsb/specifications.html,130,2,2
@@ -1749,7 +1747,6 @@ product_id,name,time,source,tdp (W),cores,threads
 239940,Intel® Core™ 7 processor 160HL,2025-02-28 13:24:12,https://www.intel.com/content/www/us/en/products/sku/239940/intel-core-7-processor-160hl-24m-cache-up-to-5-20-ghz/specifications.html,45,14,20
 239177,Intel® Core™ 7 processor 160UL,2025-02-28 13:24:12,https://www.intel.com/content/www/us/en/products/sku/239177/intel-core-7-processor-160ul-12m-cache-up-to-5-20-ghz/specifications.html,15,10,12
 236776,Intel® Core™ 3 processor 100U,2025-02-28 13:24:13,https://www.intel.com/content/www/us/en/products/sku/236776/intel-core-3-processor-100u-10m-cache-up-to-4-70-ghz/specifications.html,15,6,8
-236776,Intel® Core™ 3 processor 100U,2025-02-28 13:24:13,https://www.intel.com/content/www/us/en/products/sku/236776/intel-core-3-processor-100u-10m-cache-up-to-4-70-ghz/specifications.html,15,6,8
 236796,Intel® Core™ 5 processor 120U,2025-02-28 13:24:14,https://www.intel.com/content/www/us/en/products/sku/236796/intel-core-5-processor-120u-12m-cache-up-to-5-00-ghz/specifications.html,15,10,12
 236795,Intel® Core™ 7 processor 150U,2025-02-28 13:24:14,https://www.intel.com/content/www/us/en/products/sku/236795/intel-core-7-processor-150u-12m-cache-up-to-5-40-ghz/specifications.html,15,10,12
 242861,Intel® Core™ 3 Processor 201EF,2025-02-28 13:24:14,https://www.intel.com/content/www/us/en/products/sku/242861/intel-core-3-processor-201ef-12m-cache-up-to-4-80-ghz/specifications.html,58,4,8
@@ -1862,7 +1859,6 @@ product_id,name,time,source,tdp (W),cores,threads
 230580,Intel® Core™ i5-13500 Processor,2025-02-28 13:25:10,https://www.intel.com/content/www/us/en/products/sku/230580/intel-core-i513500-processor-24m-cache-up-to-4-80-ghz/specifications.html,65,14,20
 232134,Intel® Core™ i5-13500E Processor,2025-02-28 13:25:11,https://www.intel.com/content/www/us/en/products/sku/232134/intel-core-i513500e-processor-24m-cache-up-to-4-60-ghz/specifications.html,65,14,20
 232147,Intel® Core™ i5-13500H Processor,2025-02-28 13:25:11,https://www.intel.com/content/www/us/en/products/sku/232147/intel-core-i513500h-processor-18m-cache-up-to-4-70-ghz/specifications.html,45,12,16
-232147,Intel® Core™ i5-13500H Processor,2025-02-28 13:25:11,https://www.intel.com/content/www/us/en/products/sku/232147/intel-core-i513500h-processor-18m-cache-up-to-4-70-ghz/specifications.html,45,12,16
 232156,Intel® Core™ i5-13500HX Processor,2025-02-28 13:25:12,https://www.intel.com/content/www/us/en/products/sku/232156/intel-core-i513500hx-processor-24m-cache-up-to-4-70-ghz/specifications.html,55,14,20
 230578,Intel® Core™ i5-13500T Processor,2025-02-28 13:25:12,https://www.intel.com/content/www/us/en/products/sku/230578/intel-core-i513500t-processor-24m-cache-up-to-4-60-ghz/specifications.html,35,14,20
 232108,Intel® Core™ i5-13500TE Processor,2025-02-28 13:25:13,https://www.intel.com/content/www/us/en/products/sku/232108/intel-core-i513500te-processor-24m-cache-up-to-4-50-ghz/specifications.html,35,14,20
@@ -1884,7 +1880,6 @@ product_id,name,time,source,tdp (W),cores,threads
 230576,Intel® Core™ i3-13100F Processor,2025-02-28 13:25:22,https://www.intel.com/content/www/us/en/products/sku/230576/intel-core-i313100f-processor-12m-cache-up-to-4-50-ghz/specifications.html,58,4,8
 230579,Intel® Core™ i3-13100T Processor,2025-02-28 13:25:22,https://www.intel.com/content/www/us/en/products/sku/230579/intel-core-i313100t-processor-12m-cache-up-to-4-20-ghz/specifications.html,35,4,8
 232105,Intel® Core™ i3-13100TE Processor,2025-02-28 13:25:23,https://www.intel.com/content/www/us/en/products/sku/232105/intel-core-i313100te-processor-12m-cache-up-to-4-10-ghz/specifications.html,35,4,8
-232136,Intel® Core™ i3-1315U Processor,2025-02-28 13:25:23,https://www.intel.com/content/www/us/en/products/sku/232136/intel-core-i31315u-processor-10m-cache-up-to-4-50-ghz/specifications.html,15,6,8
 232136,Intel® Core™ i3-1315U Processor,2025-02-28 13:25:23,https://www.intel.com/content/www/us/en/products/sku/232136/intel-core-i31315u-processor-10m-cache-up-to-4-50-ghz/specifications.html,15,6,8
 233391,Intel® Core™ i3-1315UE Processor,2025-02-28 13:25:24,https://www.intel.com/content/www/us/en/products/sku/233391/intel-core-i31315ue-processor-10m-cache-up-to-4-50-ghz/specifications.html,15,6,8
 235942,Intel® Core™ i3-1315URE Processor,2025-02-28 13:25:24,https://www.intel.com/content/www/us/en/products/sku/235942/intel-core-i31315ure-processor-10m-cache-up-to-4-50-ghz/specifications.html,15,6,8
@@ -1941,7 +1936,6 @@ product_id,name,time,source,tdp (W),cores,threads
 227850,Intel® Core™ i5-1250PE Processor,2025-02-28 13:25:52,https://www.intel.com/content/www/us/en/products/sku/227850/intel-core-i51250pe-processor-12m-cache-up-to-4-40-ghz/specifications.html,28,12,16
 226453,Intel® Core™ i5-1230U Processor,2025-02-28 13:25:53,https://www.intel.com/content/www/us/en/products/sku/226453/intel-core-i51230u-processor-12m-cache-up-to-4-40-ghz/specifications.html,9,10,12
 226261,Intel® Core™ i5-1235U Processor,2025-02-28 13:25:54,https://www.intel.com/content/www/us/en/products/sku/226261/intel-core-i51235u-processor-12m-cache-up-to-4-40-ghz/specifications.html,15,10,12
-226261,Intel® Core™ i5-1235U Processor,2025-02-28 13:25:54,https://www.intel.com/content/www/us/en/products/sku/226261/intel-core-i51235u-processor-12m-cache-up-to-4-40-ghz/specifications.html,15,10,12
 132221,Intel® Core™ i5-1240P Processor,2025-02-28 13:25:54,https://www.intel.com/content/www/us/en/products/sku/132221/intel-core-i51240p-processor-12m-cache-up-to-4-40-ghz/specifications.html,28,12,16
 226452,Intel® Core™ i5-1240U Processor,2025-02-28 13:25:55,https://www.intel.com/content/www/us/en/products/sku/226452/intel-core-i51240u-processor-12m-cache-up-to-4-40-ghz/specifications.html,9,10,12
 226260,Intel® Core™ i5-1245U Processor,2025-02-28 13:25:56,https://www.intel.com/content/www/us/en/products/sku/226260/intel-core-i51245u-processor-12m-cache-up-to-4-40-ghz/specifications.html,15,10,12
@@ -1966,7 +1960,6 @@ product_id,name,time,source,tdp (W),cores,threads
 227851,Intel® Core™ i3-1215UE Processor,2025-02-28 13:26:06,https://www.intel.com/content/www/us/en/products/sku/227851/intel-core-i31215ue-processor-10m-cache-up-to-4-40-ghz/specifications.html,15,6,8
 227852,Intel® Core™ i3-1220PE Processor,2025-02-28 13:26:07,https://www.intel.com/content/www/us/en/products/sku/227852/intel-core-i31220pe-processor-12m-cache-up-to-4-20-ghz/specifications.html,28,8,12
 226451,Intel® Core™ i3-1210U Processor,2025-02-28 13:26:07,https://www.intel.com/content/www/us/en/products/sku/226451/intel-core-i31210u-processor-10m-cache-up-to-4-40-ghz/specifications.html,9,6,8
-226263,Intel® Core™ i3-1215U Processor,2025-02-28 13:26:08,https://www.intel.com/content/www/us/en/products/sku/226263/intel-core-i31215u-processor-10m-cache-up-to-4-40-ghz/specifications.html,15,6,8
 226263,Intel® Core™ i3-1215U Processor,2025-02-28 13:26:08,https://www.intel.com/content/www/us/en/products/sku/226263/intel-core-i31215u-processor-10m-cache-up-to-4-40-ghz/specifications.html,15,6,8
 226257,Intel® Core™ i3-1220P Processor,2025-02-28 13:26:08,https://www.intel.com/content/www/us/en/products/sku/226257/intel-core-i31220p-processor-12m-cache-up-to-4-40-ghz/specifications.html,28,10,12
 134584,Intel® Core™ i3-12100 Processor,2025-02-28 13:26:09,https://www.intel.com/content/www/us/en/products/sku/134584/intel-core-i312100-processor-12m-cache-up-to-4-30-ghz/specifications.html,60,4,8
@@ -2510,7 +2503,6 @@ product_id,name,time,source,tdp (W),cores,threads
 71053,Intel® Core™ i3-3210 Processor,2025-02-28 13:30:20,https://www.intel.com/content/www/us/en/products/sku/71053/intel-core-i33210-processor-3m-cache-3-20-ghz/specifications.html,55,2,4
 72057,Intel® Core™ i3-3227U Processor,2025-02-28 13:30:21,https://www.intel.com/content/www/us/en/products/sku/72057/intel-core-i33227u-processor-3m-cache-1-90-ghz/specifications.html,17,2,4
 72056,Intel® Core™ i5-3230M Processor,2025-02-28 13:30:21,https://www.intel.com/content/www/us/en/products/sku/72056/intel-core-i53230m-processor-3m-cache-up-to-3-20-ghz-bga/specifications.html,35,2,4
-72056,Intel® Core™ i5-3230M Processor,2025-02-28 13:30:21,https://www.intel.com/content/www/us/en/products/sku/72056/intel-core-i53230m-processor-3m-cache-up-to-3-20-ghz-bga/specifications.html,35,2,4
 72055,Intel® Core™ i5-3337U Processor,2025-02-28 13:30:22,https://www.intel.com/content/www/us/en/products/sku/72055/intel-core-i53337u-processor-3m-cache-up-to-2-70-ghz/specifications.html,17,2,4
 71257,Intel® Core™ i5-3340M Processor,2025-02-28 13:30:22,https://www.intel.com/content/www/us/en/products/sku/71257/intel-core-i53340m-processor-3m-cache-up-to-3-40-ghz/specifications.html,35,2,4
 71256,Intel® Core™ i5-3380M Processor,2025-02-28 13:30:22,https://www.intel.com/content/www/us/en/products/sku/71256/intel-core-i53380m-processor-3m-cache-up-to-3-60-ghz/specifications.html,35,2,4
@@ -2526,7 +2518,6 @@ product_id,name,time,source,tdp (W),cores,threads
 74259,Intel® Core™ i3-2375M Processor,2025-02-28 13:30:26,https://www.intel.com/content/www/us/en/products/sku/74259/intel-core-i32375m-processor-3m-cache-1-50-ghz/specifications.html,17,2,4
 71465,Intel® Core™ i3-3120M Processor,2025-02-28 13:30:26,https://www.intel.com/content/www/us/en/products/sku/71465/intel-core-i33120m-processor-3m-cache-2-50-ghz/specifications.html,35,2,4
 71459,Intel® Core™ i7-3630QM Processor,2025-02-28 13:30:27,https://www.intel.com/content/www/us/en/products/sku/71459/intel-core-i73630qm-processor-6m-cache-up-to-3-40-ghz/specifications.html,45,4,8
-71670,Intel® Core™ i7-3632QM Processor,2025-02-28 13:30:28,https://www.intel.com/content/www/us/en/products/sku/71670/intel-core-i73632qm-processor-6m-cache-up-to-3-20-ghz-bga/specifications.html,35,4,8
 71670,Intel® Core™ i7-3632QM Processor,2025-02-28 13:30:28,https://www.intel.com/content/www/us/en/products/sku/71670/intel-core-i73632qm-processor-6m-cache-up-to-3-20-ghz-bga/specifications.html,35,4,8
 71460,Intel® Core™ i7-3635QM Processor,2025-02-28 13:30:28,https://www.intel.com/content/www/us/en/products/sku/71460/intel-core-i73635qm-processor-6m-cache-up-to-3-40-ghz/specifications.html,45,4,8
 70847,Intel® Core™ i7-3740QM Processor,2025-02-28 13:30:28,https://www.intel.com/content/www/us/en/products/sku/70847/intel-core-i73740qm-processor-6m-cache-up-to-3-70-ghz/specifications.html,45,4,8
@@ -2549,7 +2540,6 @@ product_id,name,time,source,tdp (W),cores,threads
 65704,Intel® Core™ i5-3610ME Processor,2025-02-28 13:30:34,https://www.intel.com/content/www/us/en/products/sku/65704/intel-core-i53610me-processor-3m-cache-up-to-3-30-ghz/specifications.html,35,2,4
 65713,Intel® Core™ i7-3517UE Processor,2025-02-28 13:30:35,https://www.intel.com/content/www/us/en/products/sku/65713/intel-core-i73517ue-processor-4m-cache-up-to-2-80-ghz/specifications.html,17,2,4
 65712,Intel® Core™ i7-3555LE Processor,2025-02-28 13:30:35,https://www.intel.com/content/www/us/en/products/sku/65712/intel-core-i73555le-processor-4m-cache-up-to-3-20-ghz/specifications.html,25,2,4
-65708,Intel® Core™ i5-3210M Processor,2025-02-28 13:30:35,https://www.intel.com/content/www/us/en/products/sku/65708/intel-core-i53210m-processor-3m-cache-up-to-3-10-ghz-bga/specifications.html,35,2,4
 65708,Intel® Core™ i5-3210M Processor,2025-02-28 13:30:35,https://www.intel.com/content/www/us/en/products/sku/65708/intel-core-i53210m-processor-3m-cache-up-to-3-10-ghz-bga/specifications.html,35,2,4
 65707,Intel® Core™ i5-3317U Processor,2025-02-28 13:30:36,https://www.intel.com/content/www/us/en/products/sku/65707/intel-core-i53317u-processor-3m-cache-up-to-2-60-ghz/specifications.html,17,2,4
 64896,Intel® Core™ i5-3320M Processor,2025-02-28 13:30:36,https://www.intel.com/content/www/us/en/products/sku/64896/intel-core-i53320m-processor-3m-cache-up-to-3-30-ghz/specifications.html,35,2,4
@@ -2574,7 +2564,6 @@ product_id,name,time,source,tdp (W),cores,threads
 65711,Intel® Core™ i7-3610QE Processor,2025-02-28 13:30:43,https://www.intel.com/content/www/us/en/products/sku/65711/intel-core-i73610qe-processor-6m-cache-up-to-3-30-ghz/specifications.html,45,4,8
 64899,Intel® Core™ i7-3610QM Processor,2025-02-28 13:30:44,https://www.intel.com/content/www/us/en/products/sku/64899/intel-core-i73610qm-processor-6m-cache-up-to-3-30-ghz/specifications.html,45,4,8
 65710,Intel® Core™ i7-3612QE Processor,2025-02-28 13:30:44,https://www.intel.com/content/www/us/en/products/sku/65710/intel-core-i73612qe-processor-6m-cache-up-to-3-10-ghz/specifications.html,35,4,8
-64901,Intel® Core™ i7-3612QM Processor,2025-02-28 13:30:44,https://www.intel.com/content/www/us/en/products/sku/64901/intel-core-i73612qm-processor-6m-cache-up-to-3-10-ghz-bga/specifications.html,35,4,8
 64901,Intel® Core™ i7-3612QM Processor,2025-02-28 13:30:44,https://www.intel.com/content/www/us/en/products/sku/64901/intel-core-i73612qm-processor-6m-cache-up-to-3-10-ghz-bga/specifications.html,35,4,8
 65709,Intel® Core™ i7-3615QE Processor,2025-02-28 13:30:45,https://www.intel.com/content/www/us/en/products/sku/65709/intel-core-i73615qe-processor-6m-cache-up-to-3-30-ghz/specifications.html,45,4,8
 64900,Intel® Core™ i7-3615QM Processor,2025-02-28 13:30:45,https://www.intel.com/content/www/us/en/products/sku/64900/intel-core-i73615qm-processor-6m-cache-up-to-3-30-ghz/specifications.html,45,4,8
@@ -3709,10 +3698,6 @@ AMD Ryzen™ Embedded R1600,AMD Ryzen™ Embedded R1600,2025-02-28 14:02:03,http
 AMD Ryzen™ Embedded R1505G with Radeon™ Vega 3 Graphics,AMD Ryzen™ Embedded R1505G with Radeon™ Vega 3 Graphics,2025-02-28 14:02:03,https://www.amd.com/en/products/specifications/embedded.html,12-25,2,4
 AMD Ryzen™ Embedded R1305G with Radeon™ Vega 3 Graphics,AMD Ryzen™ Embedded R1305G with Radeon™ Vega 3 Graphics,2025-02-28 14:02:03,https://www.amd.com/en/products/specifications/embedded.html,8-10,2,4
 AMD Ryzen™ Embedded R1102G with Radeon™ Vega 3 Graphics,AMD Ryzen™ Embedded R1102G with Radeon™ Vega 3 Graphics,2025-02-28 14:02:03,https://www.amd.com/en/products/specifications/embedded.html,6,2,2
-AMD Ryzen™ 5 2400GE with Radeon™ RX Vega 11 Graphics,AMD Ryzen™ 5 2400GE with Radeon™ RX Vega 11 Graphics,2025-02-28 14:02:03,https://www.amd.com/en/products/specifications/embedded.html,35,4,8
-AMD Ryzen™ 5 2400G with Radeon™ RX Vega 11 Graphics,AMD Ryzen™ 5 2400G with Radeon™ RX Vega 11 Graphics,2025-02-28 14:02:03,https://www.amd.com/en/products/specifications/embedded.html,45-65,4,8
-AMD Ryzen™ 3 2200GE with Radeon™ Vega 8 Graphics,AMD Ryzen™ 3 2200GE with Radeon™ Vega 8 Graphics,2025-02-28 14:02:03,https://www.amd.com/en/products/specifications/embedded.html,35,4,4
-AMD Ryzen™ 3 2200G with Radeon™ Vega 8 Graphics,AMD Ryzen™ 3 2200G with Radeon™ Vega 8 Graphics,2025-02-28 14:02:03,https://www.amd.com/en/products/specifications/embedded.html,45-65,4,4
 RX-421ND,RX-421ND,2025-02-28 14:02:03,https://www.amd.com/en/products/specifications/embedded.html,12-35,4,4
 RX-421BD,RX-421BD,2025-02-28 14:02:03,https://www.amd.com/en/products/specifications/embedded.html,12-35,4,4
 RX-418GD,RX-418GD,2025-02-28 14:02:03,https://www.amd.com/en/products/specifications/embedded.html,12-35,4,4
