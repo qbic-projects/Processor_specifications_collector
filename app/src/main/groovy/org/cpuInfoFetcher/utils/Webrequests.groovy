@@ -133,7 +133,8 @@ class InteractiveHTMLScraper extends HTMLScraper {
             }
         }
 
-        return Jsoup.parse(this.driver.getPageSource())
+        Document doc = Jsoup.parse(this.driver.getPageSource(), request_url)
+        return doc
     }
 
     Document download(String request_url, String xPath_reject=null, String xPath_query) {
