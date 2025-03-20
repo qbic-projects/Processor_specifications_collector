@@ -127,7 +127,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
             if (productsCount == null || productsCount != elements.size()) {
                 String xPath_reject = './/button[text()=\"Accept Cookies\"]'
                 elements = new InteractiveHTMLScraper().scrape(url, xPath_reject, xPath_query)
-                assert productsCount == null || productsCount != elements.size()
+                assert productsCount == null || productsCount == elements.size()
             }
 
             // Make data matrix
@@ -170,7 +170,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         if (days_since_update > this.days_until_update || days_since_update < 0) {
             String url = processor_url.get('url', 0)
             // divs with id "spec" -> divs with class "tech-section" that dont have a div with the same class as child --> divs with class "row tech-section-row"
-            String xPath_query = './/div[contains(@id, "spec")]//div[@class="tech-section"][not(descendant::div[@class="tech-section"])]//div[@class="row tech-section-row"]';
+            String xPath_query = './/div[contains(@id, "spec")]//div[@class="tech-section"][not(descendant::div[@class="tech-section"])]//div[@class="row tech-section-row"]'
 
             Elements elements = this.scraper.scrape(url, xPath_query)
 
