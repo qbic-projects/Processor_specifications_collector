@@ -83,6 +83,15 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
                     element.attr('abs:href'),
                 )
             }
+
+            // Add Xeon Phi row manually
+            df.append(  'Intel® Xeon Phi® Processors',
+                        'Intel® Xeon Phi® Processors',
+                        timeFormat.format(this.localTime.now()) ,
+                        'https://www.intel.com/content/www/us/en/ark/featurefilter.html',
+                        'server',
+                        'https://www.intel.com/content/www/us/en/ark/featurefilter.html?productType=873&1_Filter-Family=75557')
+
             df = df.toDataFrame()
 
             // Save info
@@ -113,13 +122,12 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
             Elements elements = webpage.selectXpath(xPath_query)
 
             // Sanity check with products count and interactive scraping, if not present
-            Integer productsCount = Integer.parseInt(
-                    webpage.selectXpath('.//span[@class=\'products-count\']').first().ownText()
-            )
-            if (productsCount != elements.size()) {
+            String productsCountString = webpage.selectXpath('.//span[@class=\'products-count\']').first().ownText()
+            Integer productsCount = productsCountString ? Integer.parseInt(productsCountString) : null
+            if (productsCount == null || productsCount != elements.size()) {
                 String xPath_reject = './/button[text()=\"Accept Cookies\"]'
                 elements = new InteractiveHTMLScraper().scrape(url, xPath_reject, xPath_query)
-                assert productsCount == elements.size()
+                assert productsCount == null || productsCount != elements.size()
             }
 
             // Make data matrix
