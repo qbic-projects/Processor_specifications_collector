@@ -161,11 +161,9 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         int days_since_update = check_last_update(df, ChronoUnit.DAYS)
         if (days_since_update > this.days_until_update || days_since_update < 0) {
             String url = processor_url.get('url', 0)
-            // divs with id "spec" -> "divs containing "tech-section" in class
-            String xPath_query = './/div[contains(@id, "spec")]//div[contains(@class, "tech-section")]'
-            //String xPath_query = './/div[contains(@class, "tech-section")][not(ancestor::div[contains(@class, "tech-section-row")])]'
-            //div[contains(@class, "tech-section")][ancestor::div[contains(@class, "tech-section")]]
-            
+            // divs with id "spec" -> divs with class "tech-section" that dont have a div with the same class as child --> divs with class "row tech-section-row"
+            String xPath_query = './/div[contains(@id, "spec")]//div[@class="tech-section"][not(descendant::div[@class="tech-section"])]//div[@class="row tech-section-row"]';
+
             Elements elements = this.scraper.scrape(url, xPath_query)
 
             // Extract data
