@@ -1,5 +1,5 @@
 /* groovylint-disable Indentation, MethodName, TrailingWhitespace */
-package org.cpuinfofetcher
+package org.cpuinfofetcher.utils
 
 import org.dflib.DataFrame
 
@@ -13,7 +13,7 @@ class UnitsAdapterTest extends Specification {
     private final UnitsAdapter ua = new UnitsAdapter()
 
     private final DataFrame exampleDF = DataFrame.foldByRow('A', 'B', 'C').of('1 W', '2 Beta', '3')
-    private final Map<String, String[]> units = ['A': ['W', 'Watt'], 'C': ['C', 'Coloumb'], 'X': ['I', 'Imaginary']]
+    private final Map<String, List<String>> units = ['A': ['W', 'Watt'], 'C': ['C', 'Coloumb'], 'X': ['I', 'Imaginary']]
 
     boolean assertEqualDF(DataFrame df1, DataFrame df2) {
         assert df1.size() == df2.size()

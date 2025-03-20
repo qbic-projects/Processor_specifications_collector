@@ -1,5 +1,7 @@
 package org.cpuinfofetcher
 
+import org.cpuinfofetcher.utils.UnitsAdapter
+
 import java.util.logging.Logger
 
 import java.nio.file.Paths
@@ -24,7 +26,7 @@ class Main {
     private static int days_until_outdated
 
     // Mapping possible naming schemes for attributes
-    static Map<String, String[]> specification_aliases = [
+    static Map<String, List<String>> specification_aliases = [
         'product_id': ['name', 'product_id'],
         'name': ['name'],
         'time': ['time'],
@@ -39,7 +41,7 @@ class Main {
         'threads': ['cores', 'Total Cores', '# of CPU Cores', 'Total Threads', '# of Threads', 'threads']
     ]
     // Mapping units to columns
-    static Map<String, String[]> units_mapping = ['tdp': ['W', 'Watt']]
+    static Map<String, List<String>> units_mapping = ['tdp': ['W', 'Watt']]
 
     static List<DataFrame> collectSpecifications(int days_until_outdated) {
         LOGGER.entering('Main', 'collectSpecifications')
@@ -67,7 +69,7 @@ class Main {
     static DataFrame mergeSpecifications(List<DataFrame> specificationsList) {
         DataFrame specifications = DataFrame.empty()
 
-        for (specification : specificationsList) {
+        for (DataFrame specification : specificationsList) {
             specifications = specifications.vConcat(JoinType.full, specification)
         }
 
