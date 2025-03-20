@@ -138,16 +138,18 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
     // Single run specification fetching
     protected DataFrame fetch_processor_specification(DataFrame processor_url, Path snap_path) {
         String name = processor_url.get('name', 0)
-        String url = processor_url.get('url', 0)
         name = name.replaceAll('[^a-zA-Z0-9_ ]+', '').replace(' ', '_')
         snap_path = snap_path.resolve(name + '.csv')
-
         // Get snapshot & Update time
         DataFrame df = check_snap(snap_path, [])
         int days_since_update = check_last_update(df, ChronoUnit.DAYS)
         if (days_since_update > this.days_until_update || days_since_update < 0) {
+            String url = processor_url.get('url', 0)
             // divs with id "spec" -> "divs containing "tech-section" in class
             String xPath_query = './/div[contains(@id, "spec")]//div[contains(@class, "tech-section")]'
+            //String xPath_query = './/div[contains(@class, "tech-section")][not(ancestor::div[contains(@class, "tech-section-row")])]'
+            //div[contains(@class, "tech-section")][ancestor::div[contains(@class, "tech-section")]]
+            
             Elements elements = this.scraper.scrape(url, xPath_query)
 
             // Extract data
@@ -171,7 +173,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
                 .foldByColumn(*this.standard_cols, *labels)
                 .of(
                     processor_url.get('product_id', 0),
-                    name,
+                    processor_url.get('name', 0),
                     timeFormat.format(this.localTime.now()),
                     url,
                     processor_url.get('intended_usage', 0),

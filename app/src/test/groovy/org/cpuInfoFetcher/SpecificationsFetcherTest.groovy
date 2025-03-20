@@ -72,15 +72,26 @@ public class SpecificationsFetcherTest extends Specification {
 
         when:
             String now = this.sf.timeFormat.format(this.sf.localTime.now())
-            df = this.sf.add_metadata(df, 'some_source')
+            if (passIntendedUsage) {
+                df = this.sf.add_metadata(df, source, intendedUsage)
+            } else {
+                df = this.sf.add_metadata(df, source)
+            }
 
         then:
             assertEqualDF(
                 df,
                 DataFrame
                     .foldByRow('time', 'source', 'intended_usage', 'place')
-                    .of(now, 'some_source', 'unknown', 'Milkyway')
+                    .of(now, source, expectedIntendedUsage, 'Milkyway')
             )
-    }
+
+        where:
+            passIntendedUsage | source        | intendedUsage || expectedIntendedUsage
+            false             | 'some_source' | _             || 'unknown'
+            true              | 'some_source' | 'local'       || 'local'
+            true              | 'other_source'| 'server'      || 'server'
+}
+
 
 }
