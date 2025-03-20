@@ -1,5 +1,5 @@
 /* groovylint-disable Indentation, MethodName */
-package org.cpuinfofetcher
+package org.cpuinfofetcher.utils
 
 import org.jsoup.nodes.Element
 import org.jsoup.nodes.Document
@@ -40,7 +40,7 @@ class WebrequestsTest extends Specification {
             DataFrame df = scraper.parse_table(table)
 
         then:
-            df.getColumnsIndex().toArray() == ['Team', 'Sport', 'City']
+            df.getColumnsIndex().toList() == ['Team', 'Sport', 'City']
     }
 
 
