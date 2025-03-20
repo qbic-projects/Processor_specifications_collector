@@ -1,4 +1,4 @@
-package org.cpuinfofetcher
+package org.cpuinfofetcher.utils
 
 import java.util.concurrent.TimeUnit
 import java.util.logging.Logger

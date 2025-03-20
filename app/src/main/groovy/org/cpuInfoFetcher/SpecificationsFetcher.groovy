@@ -17,7 +17,7 @@ import org.dflib.csv.Csv
  * @version 1.0
  * @since 1.0
  */
-public class SpecificationsFetcher {
+class SpecificationsFetcher {
 
     // Define common time format
     DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern('yyyy-MM-dd HH:mm:ss')
@@ -29,7 +29,7 @@ public class SpecificationsFetcher {
 
 
     // Check last snap of Dataframe
-    DataFrame check_snap(Path path, List newColumns) {
+    static DataFrame check_snap(Path path, List<String> newColumns) {
         path = path.toAbsolutePath().normalize()
         if (Files.isRegularFile(path)) {
             return Csv.load(path)
@@ -44,7 +44,7 @@ public class SpecificationsFetcher {
     int check_last_update(def df, ChronoUnit unit) {
         if (df instanceof DataFrame && df.height() > 0) {
             if (df.getColumnsIndex().toArray().contains('time')) {
-                return LocalDateTime.parse(df.get('time', 0), timeFormat)
+                return LocalDateTime.parse((String) df.get('time', 0), timeFormat)
                     .until(this.localTime.now(), unit)
             }
         }
@@ -64,7 +64,7 @@ public class SpecificationsFetcher {
         return meta_df.hConcat(df).colsExcept(c -> c.endsWith('_')).select()
     }
 
-    void removeBOM(Path path){
+    static void removeBOM(Path path){
         byte[] bytes = Files.readAllBytes(path)
         String content = new String(bytes, StandardCharsets.UTF_8)
         if (content.startsWith('\uFEFF')) {

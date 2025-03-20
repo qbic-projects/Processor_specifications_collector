@@ -1,5 +1,5 @@
 /* groovylint-disable Indentation, MethodName */
-package org.cpuinfofetcher
+package org.cpuinfofetcher.utils
 
 import org.cpuinfofetcher.utils.*
 

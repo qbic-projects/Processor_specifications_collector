@@ -1,4 +1,4 @@
-package org.cpuinfofetcher
+package org.cpuinfofetcher.utils
 
 import org.dflib.DataFrame
 

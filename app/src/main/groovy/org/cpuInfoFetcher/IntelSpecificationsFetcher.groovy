@@ -1,6 +1,7 @@
 package org.cpuinfofetcher
 
-import org.cpuinfofetcher.utils.*
+import org.cpuinfofetcher.utils.HTMLScraper
+import org.cpuinfofetcher.utils.InteractiveHTMLScraper
 
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -214,7 +215,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
     }
 
 
-    // Multible run specification fetching
+    // Multiple run specification fetching
     protected DataFrame fetch_specifications(DataFrame processor_urls, Path snap_path) {
         // Get calls
         Files.createDirectories(snap_path.resolve('processor_infos'))
@@ -229,7 +230,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         }
 
         // Invoke calls
-        List<Future> futures
+        List<Future> futures = []
         try {
             futures = this.threadPool.invokeAll(callables)
         } catch (InterruptedException e) {
@@ -243,7 +244,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         DataFrame specifications = DataFrame.empty()
         for (Future future : futures) {
             // Extract df from future
-            DataFrame df = future.get()
+            DataFrame df = (DataFrame) future.get()
 
             // Add specification to collection dataframe
             specifications = specifications.vConcat(
