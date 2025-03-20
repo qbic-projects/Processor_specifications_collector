@@ -1,0 +1,9 @@
+time,source,intended_usage,name,CORES,SUSTAINED FREQUENCY (GHz),USAGE POWER (W),SBV USD Price
+2025-03-20 11:27:46,https://amperecomputing.com/briefs/ampereone-family-product-brief,server,AmpereOne A192-32X,192,3.2,276,"$5,555"
+2025-03-20 11:27:46,https://amperecomputing.com/briefs/ampereone-family-product-brief,server,AmpereOne A192-26X,192,2.6,211,"$5,237"
+2025-03-20 11:27:46,https://amperecomputing.com/briefs/ampereone-family-product-brief,server,AmpereOne A160-28X,160,2.8,215,"$4,760"
+2025-03-20 11:27:46,https://amperecomputing.com/briefs/ampereone-family-product-brief,server,AmpereOne A144-27X,144,2.7,214,"$4,284"
+2025-03-20 11:27:46,https://amperecomputing.com/briefs/ampereone-family-product-brief,server,AmpereOne A144-26X,144,2.6,332,"$2,936"
+2025-03-20 11:27:46,https://amperecomputing.com/briefs/ampereone-family-product-brief,server,AmpereOne A144-24X,144,2.4,185,"$3,967"
+2025-03-20 11:27:46,https://amperecomputing.com/briefs/ampereone-family-product-brief,server,AmpereOne A128-34X,128,3.4,280,"$4,760"
+2025-03-20 11:27:46,https://amperecomputing.com/briefs/ampereone-family-product-brief,server,AmpereOne A96-37X,96,3.7,292,"$4,761"

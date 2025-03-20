@@ -14,16 +14,16 @@ import org.dflib.csv.Csv
 import spock.lang.Specification
 
 /**
- * Test fetching of Ampera specifications
+ * Test fetching of Ampere specifications
  * @author Josua Carl
  * @version 1.0
  * @since 1.0
  */
-class AmperaSpecificationsFetcherTest extends Specification {
+class AmpereSpecificationsFetcherTest extends Specification {
 
     private final Path tempPath = Files.createTempDirectory('tmpdir')
 
-    private final AmperaSpecificationsFetcher sf = new AmperaSpecificationsFetcher(
+    private final AmpereSpecificationsFetcher sf = new AmpereSpecificationsFetcher(
         0, tempPath
     )
 
@@ -49,7 +49,7 @@ class AmperaSpecificationsFetcherTest extends Specification {
 
         when:
             this.sf.fetch_processor_specifications(url, this.tempPath)
-            DataFrame specifications = Csv.load(this.tempPath.resolve('Ampera_cpu_specifications.csv'))
+            DataFrame specifications = Csv.load(this.tempPath.resolve('Ampere_cpu_specifications.csv'))
 
         then:
             specifications.getColumnsIndex().toArray() == [
