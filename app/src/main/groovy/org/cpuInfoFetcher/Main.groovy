@@ -2,6 +2,7 @@ package org.cpuinfofetcher
 
 import org.cpuinfofetcher.utils.UnitsAdapter
 
+import java.nio.file.Files
 import java.util.logging.Logger
 
 import java.nio.file.Paths
@@ -82,6 +83,8 @@ class Main {
 
     static void main(String[] args) {
         this.days_until_outdated = args.length > 0 ? Integer.parseInt(args[0]) : 28
+
+        Files.createDirectories(Paths.get('..', 'specifications_out'))
 
         // Collecting Info
         LOGGER.entering('Main', 'main')

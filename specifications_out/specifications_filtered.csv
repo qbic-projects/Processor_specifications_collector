@@ -1,0 +1,20 @@
+product_id,name,time,source,intended_usage,tdp (W),cores,threads
+128694,Intel® Xeon Phi™ Processor 7235,2025-03-20 13:32:14,https://www.intel.com/content/www/us/en/products/sku/128694/intel-xeon-phi-processor-7235-16gb-1-3-ghz-64-core/specifications.html,server,250,64,64
+128691,Intel® Xeon Phi™ Processor 7285,2025-03-20 13:32:14,https://www.intel.com/content/www/us/en/products/sku/128691/intel-xeon-phi-processor-7285-16gb-1-3-ghz-68-core/specifications.html,server,250,68,68
+128690,Intel® Xeon Phi™ Processor 7295,2025-03-20 13:32:14,https://www.intel.com/content/www/us/en/products/sku/128690/intel-xeon-phi-processor-7295-16gb-1-5-ghz-72-core/specifications.html,server,320,72,72
+94033,Intel® Xeon Phi™ Processor 7210,2025-03-20 13:32:15,https://www.intel.com/content/www/us/en/products/sku/94033/intel-xeon-phi-processor-7210-16gb-1-30-ghz-64-core/specifications.html,server,215,64,64
+94709,Intel® Xeon Phi™ Processor 7210F,2025-03-20 13:32:15,https://www.intel.com/content/www/us/en/products/sku/94709/intel-xeon-phi-processor-7210f-16gb-1-30-ghz-64-core/specifications.html,server,230,64,64
+94034,Intel® Xeon Phi™ Processor 7230,2025-03-20 13:32:15,https://www.intel.com/content/www/us/en/products/sku/94034/intel-xeon-phi-processor-7230-16gb-1-30-ghz-64-core/specifications.html,server,215,64,64
+95828,Intel® Xeon Phi™ Processor 7230F,2025-03-20 13:32:16,https://www.intel.com/content/www/us/en/products/sku/95828/intel-xeon-phi-processor-7230f-16gb-1-30-ghz-64-core/specifications.html,server,230,64,64
+94035,Intel® Xeon Phi™ Processor 7250,2025-03-20 13:32:16,https://www.intel.com/content/www/us/en/products/sku/94035/intel-xeon-phi-processor-7250-16gb-1-40-ghz-68-core/specifications.html,server,215,68,68
+95829,Intel® Xeon Phi™ Processor 7250F,2025-03-20 13:32:17,https://www.intel.com/content/www/us/en/products/sku/95829/intel-xeon-phi-processor-7250f-16gb-1-40-ghz-68-core/specifications.html,server,230,68,68
+95830,Intel® Xeon Phi™ Processor 7290,2025-03-20 13:32:17,https://www.intel.com/content/www/us/en/products/sku/95830/intel-xeon-phi-processor-7290-16gb-1-50-ghz-72-core/specifications.html,server,245,72,72
+95831,Intel® Xeon Phi™ Processor 7290F,2025-03-20 13:32:17,https://www.intel.com/content/www/us/en/products/sku/95831/intel-xeon-phi-processor-7290f-16gb-1-50-ghz-72-core/specifications.html,server,260,72,72
+80555,Intel® Xeon Phi™ Coprocessor 7120A,2025-03-20 13:32:17,https://www.intel.com/content/www/us/en/products/sku/80555/intel-xeon-phi-coprocessor-7120a-16gb-1-238-ghz-61-core/specifications.html,server,300,61,61
+80310,Intel® Xeon Phi™ Coprocessor 7120D,2025-03-20 13:32:18,https://www.intel.com/content/www/us/en/products/sku/80310/intel-xeon-phi-coprocessor-7120d-16gb-1-238-ghz-61-core/specifications.html,server,270,61,61
+75797,Intel® Xeon Phi™ Coprocessor 3120A,2025-03-20 13:32:18,https://www.intel.com/content/www/us/en/products/sku/75797/intel-xeon-phi-coprocessor-3120a-6gb-1-100-ghz-57-core/specifications.html,server,300,57,57
+75798,Intel® Xeon Phi™ Coprocessor 3120P,2025-03-20 13:32:18,https://www.intel.com/content/www/us/en/products/sku/75798/intel-xeon-phi-coprocessor-3120p-6gb-1-100-ghz-57-core/specifications.html,server,300,57,57
+75801,Intel® Xeon Phi™ Coprocessor 5120D,2025-03-20 13:32:18,https://www.intel.com/content/www/us/en/products/sku/75801/intel-xeon-phi-coprocessor-5120d-8gb-1-053-ghz-60-core/specifications.html,server,245,60,60
+75799,Intel® Xeon Phi™ Coprocessor 7120P,2025-03-20 13:32:19,https://www.intel.com/content/www/us/en/products/sku/75799/intel-xeon-phi-coprocessor-7120p-16gb-1-238-ghz-61-core/specifications.html,server,300,61,61
+75800,Intel® Xeon Phi™ Coprocessor 7120X,2025-03-20 13:32:19,https://www.intel.com/content/www/us/en/products/sku/75800/intel-xeon-phi-coprocessor-7120x-16gb-1-238-ghz-61-core/specifications.html,server,300,61,61
+71992,Intel® Xeon Phi™ Coprocessor 5110P,2025-03-20 13:32:19,https://www.intel.com/content/www/us/en/products/sku/71992/intel-xeon-phi-coprocessor-5110p-8gb-1-053-ghz-60-core/specifications.html,server,225,60,60
