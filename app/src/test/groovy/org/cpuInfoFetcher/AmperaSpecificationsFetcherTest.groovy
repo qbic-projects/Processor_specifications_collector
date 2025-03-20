@@ -52,8 +52,8 @@ class AmperaSpecificationsFetcherTest extends Specification {
             DataFrame specifications = Csv.load(this.tempPath.resolve('Ampera_cpu_specifications.csv'))
 
         then:
-            specifications.getColumnsIndex().toList() == [
-                'time', 'source' , 'name', 'CORES', 'SUSTAINED FREQUENCY (GHz)', 'USAGE POWER (W)', 'product_id'
+            specifications.getColumnsIndex().toArray() == [
+                'time', 'source' , 'intended_usage', 'name', 'CORES', 'SUSTAINED FREQUENCY (GHz)', 'USAGE POWER (W)', 'product_id'
             ]
     }
 }

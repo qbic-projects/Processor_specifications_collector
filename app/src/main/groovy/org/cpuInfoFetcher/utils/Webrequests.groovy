@@ -118,6 +118,7 @@ class InteractiveHTMLScraper extends HTMLScraper {
     private void waitForClickableElement(WebDriver webDriver, String xPath) {
         Wait<WebDriver> wait = new WebDriverWait(webDriver, Duration.ofSeconds(2))
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xPath)))
+        TimeUnit.SECONDS.sleep(1)
     }
 
     Document getDoc(String request_url, String xPath_reject=null) {
