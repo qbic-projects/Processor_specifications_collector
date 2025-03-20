@@ -58,10 +58,10 @@ class Main {
         AMDSpecificationsFetcher amdSF = new AMDSpecificationsFetcher(days_until_outdated)
         specificationsList.add(amdSF.main())
 
-        // Ampera
-        LOGGER.info('Fetching Ampera specifications.')
-        AmperaSpecificationsFetcher amperaSF = new AmperaSpecificationsFetcher(days_until_outdated)
-        specificationsList.add(amperaSF.main())
+        // Ampere
+        LOGGER.info('Fetching Ampere specifications.')
+        AmpereSpecificationsFetcher AmpereSF = new AmpereSpecificationsFetcher(days_until_outdated)
+        specificationsList.add(AmpereSF.main())
 
         LOGGER.exiting('Main', 'collectSpecifications')
         return specificationsList

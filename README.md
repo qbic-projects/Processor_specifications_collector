@@ -1,5 +1,5 @@
 # Processor specifications collector
-Collects specifications of Intel, AMD and Ampera processors and summarizes them in one file. The programm can be re-run periodically and will only fetch new information after a given time period.
+Collects specifications of Intel, AMD and Ampere processors and summarizes them in one file. The programm can be re-run periodically and will only fetch new information after a given time period.
 
 ## Features
 
@@ -7,7 +7,7 @@ Collects specifications of Intel, AMD and Ampera processors and summarizes them 
 |-----------------------------------------------|--------|
 | Extract processor specifications from Intel   | ✅     |
 | Extract processor specifications from AMD     | ✅     |
-| Extract processor specifications from Ampera  | ✅     |
+| Extract processor specifications from Ampere  | ✅     |
 | Summarize all specifications into one table   | ✅     |
 | Remove units from different properties        | ✅     |
 | Configuration via JSON/YAML file              | 🛠️     |

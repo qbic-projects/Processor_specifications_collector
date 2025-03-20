@@ -12,23 +12,24 @@ import org.jsoup.nodes.Element
 
 import org.dflib.DataFrame
 import org.dflib.csv.Csv
+import org.dflib.JoinType
 
 /**
- * Fetch Ampera specifications
+ * Fetch Ampere specifications
  * @author Josua Carl
  * @version 1.0
  * @since 1.0
  */
-class AmperaSpecificationsFetcher extends SpecificationsFetcher {
+class AmpereSpecificationsFetcher extends SpecificationsFetcher {
 
     Path snap_path
     HTMLScraper scraper
-    AmperaSpecificationsFetcher(int days_until_update, Path snap_path=null) {
+    AmpereSpecificationsFetcher(int days_until_update, Path snap_path=null) {
         this.days_until_update = days_until_update
 
         if (snap_path == null) {
             String script_path = getClass().protectionDomain.codeSource.location.path
-            this.snap_path = Paths.get(script_path, '..', '..', '..', '..', '..', 'snapshots', 'Ampera')
+            this.snap_path = Paths.get(script_path, '..', '..', '..', '..', '..', 'snapshots', 'Ampere')
                 .toAbsolutePath()
                 .normalize()
         } else {
@@ -41,7 +42,7 @@ class AmperaSpecificationsFetcher extends SpecificationsFetcher {
 
 
     DataFrame fetch_processor_specifications(String url, Path snap_path) {
-        snap_path = snap_path.resolve('Ampera_cpu_specifications.csv')
+        snap_path = snap_path.resolve('Ampere_cpu_specifications.csv')
 
         // Get snapshot & Update time
         def df = check_snap(snap_path, [])
@@ -66,11 +67,22 @@ class AmperaSpecificationsFetcher extends SpecificationsFetcher {
         return df
     }
 
+    DataFrame manually_add_processor_specifications(DataFrame existing_df, DataFrame new_df) {
+        snap_path = snap_path.resolve('Ampere_cpu_specifications.csv')
+        DataFrame df = existing_df.vConcat(JoinType.inner, new_df)
+        Csv.save(df, snap_path)
+        return df
+    }
+
     DataFrame main() {
         DataFrame specifications = fetch_processor_specifications(
             'https://amperecomputing.com/briefs/ampere-altra-family-product-brief',
             snap_path
         )
+
+        // Load local specifications file as it is only available as .png on the website 
+        DataFrame spec_file = Csv.load("/Users/nadja/Documents/code_files/Processor_specifications_collector/input_data/Ampere_One_Family_Specifications_2025-03-20.csv")
+        specifications = manually_add_processor_specifications(specifications, spec_file)
 
         return specifications
     }
