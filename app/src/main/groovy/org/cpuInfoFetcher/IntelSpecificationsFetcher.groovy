@@ -1,6 +1,7 @@
 package org.cpuinfofetcher
 
 import org.cpuinfofetcher.utils.HTMLScraper
+import org.cpuinfofetcher.utils.InteractiveHTMLScraper
 
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -15,6 +16,7 @@ import java.util.concurrent.Future
 
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
+import org.jsoup.nodes.Document
 
 import me.tongfei.progressbar.ProgressBar
 
@@ -101,9 +103,21 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         int days_since_update = check_last_update(df, ChronoUnit.DAYS)
 
         if (days_since_update > this.days_until_update || days_since_update < 0) {
+            Document webpage =  this.scraper.getDoc(url)
+
             // table with id "product-table" -> table body -> table rows
-            String xPath_query = './/table[@id=\'product-table\']//tbody/tr'
-            Elements elements = this.scraper.scrape(url, xPath_query)
+            String xPath_query = './/table[@id=\'product-table\']//tbody//tr'
+            Elements elements = webpage.selectXpath(xPath_query)
+
+            // Sanity check with products count and interactive scraping, if not present
+            Integer productsCount = Integer.parseInt(
+                    webpage.selectXpath('.//span[@class=\'products-count\']').first().ownText()
+            )
+            if (productsCount != elements.size()) {
+                String xPath_reject = './/button[text()=\"Accept Cookies\"]'
+                elements = new InteractiveHTMLScraper().scrape(url, xPath_reject, xPath_query)
+                assert productsCount == elements.size()
+            }
 
             // Make data matrix
             df = DataFrame.byArrayRow(df.getColumnsIndex()).appender()
