@@ -1,5 +1,7 @@
 package org.cpuinfofetcher
 
+import org.cpuinfofetcher.utils.InteractiveHTMLScraper
+
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.nio.file.Files
@@ -48,7 +50,7 @@ class AMDSpecificationsFetcher extends SpecificationsFetcher {
             String xPath_query = './/button[contains(@class, "buttons-csv")]'
             String xPath_reject = './/button[text()=\"Accept Cookies\"]'
 
-            this.scraper.scrape(url, xPath_reject, xPath_query)
+            this.scraper.download(url, xPath_reject, xPath_query)
 
             Files.move(downloadPath, snap_path, StandardCopyOption.REPLACE_EXISTING)
             removeBOM(snap_path)

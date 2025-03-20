@@ -1,4 +1,4 @@
-package org.cpuinfofetcher
+package org.cpuinfofetcher.utils
 
 import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
@@ -41,13 +41,19 @@ class HTMLScraper {
         .header('Accept', '*/*')
         .header('Accept-Language', 'en-US,en;q=0.5')
 
-    Elements scrape(String request_url, String xPath_query) {
+    Document getDoc(String request_url) {
         Connection connection = session.newRequest(request_url)
         Document doc = connection.get()
 
-        Elements processor_elements = doc.selectXpath(xPath_query)
+        return doc
+    }
 
-        return processor_elements
+    Elements scrape(String request_url, String xPath_query) {
+        Document doc = getDoc(request_url)
+
+        Elements elements = doc.selectXpath(xPath_query)
+
+        return elements
     }
 
     DataFrame parse_table(Element table){
@@ -86,7 +92,7 @@ class InteractiveHTMLScraper extends HTMLScraper {
     FirefoxOptions driverOptions = new FirefoxOptions()
     WebDriver driver
 
-    InteractiveHTMLScraper(String download_directory) {
+    InteractiveHTMLScraper(String download_directory='.') {
         this.driverOptions.addPreference('browser.download.folderList', 2);
         this.driverOptions.addPreference('browser.download.dir', download_directory)
         this.driverOptions.addPreference('browser.download.useDownloadDir', true)
@@ -115,7 +121,7 @@ class InteractiveHTMLScraper extends HTMLScraper {
         TimeUnit.SECONDS.sleep(1)
     }
 
-    Document scrape(String request_url, String xPath_reject, String xPath_query) {
+    Document getDoc(String request_url, String xPath_reject=null) {
         this.driver.get(request_url)
         waitForPageLoad(this.driver)
 
@@ -128,12 +134,24 @@ class InteractiveHTMLScraper extends HTMLScraper {
             }
         }
 
+        Document doc = Jsoup.parse(this.driver.getPageSource(), request_url)
+        return doc
+    }
+
+    Document download(String request_url, String xPath_reject=null, String xPath_query) {
+        Document doc = getDoc(request_url, xPath_reject)
+
         waitForClickableElement(this.driver, xPath_query)
         WebElement element = this.driver.findElement(By.xpath(xPath_query))
         element.click()
 
-        Document doc = Jsoup.parse(this.driver.getPageSource())
         return doc
+    }
+
+    Elements scrape(String request_url, String xPath_reject=null, String xPath_query) {
+        Document doc = getDoc(request_url, xPath_reject)
+
+        return doc.selectXpath(xPath_query)
     }
 
     void quit() {
