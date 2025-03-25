@@ -22,7 +22,7 @@ import spock.lang.Specification
  * @version 1.0
  * @since 1.0
  */
-public class SpecificationsFetcherTest extends Specification {
+class SpecificationsFetcherTest extends Specification {
 
     private final SpecificationsFetcher sf = new SpecificationsFetcher()
     private final Path tempPath = Files.createTempFile('file', '.tmp')

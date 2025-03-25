@@ -59,7 +59,7 @@ class IntelSpecificationsFetcherTest extends Specification  {
             DataFrame specifications = Csv.load(this.tempPath.resolve('Intel_family_info.csv'))
 
         then:
-            specifications.getColumnsIndex().toArray() == [
+            specifications.getColumnsIndex().toList() == [
                 'product_id', 'name', 'time', 'source', 'intended_usage', 'url'
             ]
     }
@@ -94,7 +94,7 @@ class IntelSpecificationsFetcherTest extends Specification  {
             DataFrame specifications = Csv.load(this.tempPath.resolve('Intel_Processor_Useries.csv'))
 
         then:
-            specifications.getColumnsIndex().toArray() == [
+            specifications.getColumnsIndex().toList() == [
                 'product_id', 'name', 'time', 'source', 'intended_usage', 'url'
             ]
     }
@@ -130,7 +130,7 @@ class IntelSpecificationsFetcherTest extends Specification  {
             DataFrame specifications = Csv.load(this.tempPath.resolve('some_name.csv'))
 
         then:
-            specifications.getColumnsIndex().toArray() == [
+            specifications.getColumnsIndex().toList() == [
                 'product_id', 'name', 'time', 'source', 'intended_usage', 'Product Collection', 'Code Name', 'Vertical Segment',
                 'Processor Number', 'Lithography', 'Total Cores', 'Processor Base Frequency', 'Cache', 'Bus Speed',
                 'FSB Parity', 'TDP', 'VID Voltage Range', 'Marketing Status', 'Launch Date', 'Servicing Status',

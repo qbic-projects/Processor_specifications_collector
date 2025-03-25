@@ -81,7 +81,9 @@ class AmpereSpecificationsFetcher extends SpecificationsFetcher {
         )
 
         // Load local specifications file as it is only available as .png on the website 
-        DataFrame spec_file = Csv.load(Paths.get('..', 'input_data', 'Ampere_One_Family_Specifications_2025-03-20.csv'))
+        DataFrame spec_file = Csv.load(
+                Paths.get(this.class.getResource('/Ampere_One_Family_Specifications_2025-03-20.csv').toURI())
+        )
         specifications = manually_add_processor_specifications(specifications, spec_file)
 
         return specifications

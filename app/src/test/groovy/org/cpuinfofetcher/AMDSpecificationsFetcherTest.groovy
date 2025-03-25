@@ -58,7 +58,7 @@ class AMDSpecificationsFetcherTest extends Specification {
             DataFrame specifications = Csv.load(this.tempPath.resolve('AMD_processor_specifications.csv'))
 
         then:
-            specifications.getColumnsIndex().toArray() == [
+            specifications.getColumnsIndex().toList() == [
                 'time', 'source', 'intended_usage', 'name', 'Family', 'Series', 'Form Factor', '# of CPU Cores', '# of Threads',
                 'Max. Boost Clock', 'Base Clock', 'L2 Cache', 'L3 Cache', 'Default TDP', 'L1 Cache',
                 'AMD Configurable TDP (cTDP)', 'Processor Technology for CPU Cores', 'Unlocked for Overclocking',

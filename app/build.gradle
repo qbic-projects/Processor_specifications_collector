@@ -20,6 +20,10 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+    main.resources.srcDir('src/resources')
+}
+
 dependencies {
     // Use the latest Groovy version for building this library
     implementation libs.groovy.all

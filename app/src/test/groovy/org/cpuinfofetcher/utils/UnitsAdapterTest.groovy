@@ -15,16 +15,6 @@ class UnitsAdapterTest extends Specification {
     private final DataFrame exampleDF = DataFrame.foldByRow('A', 'B', 'C').of('1 W', '2 Beta', '3')
     private final Map<String, List<String>> units = ['A': ['W', 'Watt'], 'C': ['C', 'Coloumb'], 'X': ['I', 'Imaginary']]
 
-    boolean assertEqualDF(DataFrame df1, DataFrame df2) {
-        assert df1.size() == df2.size()
-        assert df1.getColumnsIndex().toArray() == df2.getColumnsIndex().toArray()
-        for (int i = 0; i < df1.width(); i++) {
-            for (int j = 0; j < df1.height(); j++) {
-                assert df1.get(i, j) == df2.get(i, j)
-            }
-        }
-        return true
-    }
 
     def 'check extraction of units'() {
         setup:
@@ -33,7 +23,24 @@ class UnitsAdapterTest extends Specification {
             DataFrame result = this.ua.unitToColumnName(this.exampleDF, this.units)
         
         then:
-            assertEqualDF(result, expected)
+            Helpers.assertEqualDF(result, expected)
+    }
+
+    def 'check tdp value extraction'() {
+        setup:
+            DataFrame input = DataFrame
+                .foldByColumn("test_col", "tdp (W)")
+                .of("test_val_1", "test_val_2", "test_val_3", "test_val_4", "15-30", "15-30", "1.5/10", "2.3--5")
+            DataFrame expected = DataFrame
+                    .foldByColumn("test_col", "tdp (W)")
+                    .of("test_val_1", "test_val_2", "test_val_3", "test_val_4", 15.0, 15.0, 1.5, 2.3)
+
+        when:
+            DataFrame output = this.ua.extractFirstNumber(input)
+
+        then:
+        Helpers.assertEqualDF(expected, output)
+
     }
 
 }

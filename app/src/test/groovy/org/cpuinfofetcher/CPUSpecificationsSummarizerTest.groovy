@@ -18,7 +18,7 @@ class CPUSpecificationsSummarizerTest extends Specification {
     private final CPUSpecificationsSummarizer summarizer = new CPUSpecificationsSummarizer()
 
     private final DataFrame exampleDF = DataFrame.foldByRow('A', 'B').of('1', '2')
-    private final Map<String, String[]> aliases = ['A': ['A'], 'C': ['X', 'B'], 'B': ['C']]
+    private final Map<String, String[]> aliases = ['A': ['A'], 'C': ['X', 'B'], 'B': ['C']] as Map<String, String[]>
 
     boolean assertEqualDF(DataFrame df1, DataFrame df2) {
         assert df1.size() == df2.size()
