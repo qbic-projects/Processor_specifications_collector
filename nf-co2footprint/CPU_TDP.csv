@@ -2831,6 +2831,25 @@ product_id,name,time,source,intended_usage,cores,threads,tdp (W)
 27229,Intel® Core™ Duo Processor L2400,2025-03-20 12:44:43,https://www.intel.com/content/www/us/en/products/sku/27229/intel-core-duo-processor-l2400-2m-cache-1-66-ghz-667-mhz-fsb/specifications.html,local,2,2,15.0
 27236,Intel® Core™ Duo Processor T2500,2025-03-20 12:44:43,https://www.intel.com/content/www/us/en/products/sku/27236/intel-core-duo-processor-t2500-2m-cache-2-00-ghz-667-mhz-fsb/specifications.html,local,2,2,31.0
 27240,Intel® Core™ Duo Processor U2500,2025-03-20 12:44:43,https://www.intel.com/content/www/us/en/products/sku/27240/intel-core-duo-processor-u2500-2m-cache-1-20-ghz-533-mhz-fsb/specifications.html,local,2,2,9.0
+128694,Intel® Xeon Phi™ Processor 7235,2025-03-25 15:38:33,https://www.intel.com/content/www/us/en/products/sku/128694/intel-xeon-phi-processor-7235-16gb-1-3-ghz-64-core/specifications.html,server,64,64,250.0
+128691,Intel® Xeon Phi™ Processor 7285,2025-03-25 15:38:33,https://www.intel.com/content/www/us/en/products/sku/128691/intel-xeon-phi-processor-7285-16gb-1-3-ghz-68-core/specifications.html,server,68,68,250.0
+128690,Intel® Xeon Phi™ Processor 7295,2025-03-25 15:38:33,https://www.intel.com/content/www/us/en/products/sku/128690/intel-xeon-phi-processor-7295-16gb-1-5-ghz-72-core/specifications.html,server,72,72,320.0
+94033,Intel® Xeon Phi™ Processor 7210,2025-03-25 15:38:33,https://www.intel.com/content/www/us/en/products/sku/94033/intel-xeon-phi-processor-7210-16gb-1-30-ghz-64-core/specifications.html,server,64,64,215.0
+94709,Intel® Xeon Phi™ Processor 7210F,2025-03-25 15:38:33,https://www.intel.com/content/www/us/en/products/sku/94709/intel-xeon-phi-processor-7210f-16gb-1-30-ghz-64-core/specifications.html,server,64,64,230.0
+94034,Intel® Xeon Phi™ Processor 7230,2025-03-25 15:38:34,https://www.intel.com/content/www/us/en/products/sku/94034/intel-xeon-phi-processor-7230-16gb-1-30-ghz-64-core/specifications.html,server,64,64,215.0
+95828,Intel® Xeon Phi™ Processor 7230F,2025-03-25 15:38:34,https://www.intel.com/content/www/us/en/products/sku/95828/intel-xeon-phi-processor-7230f-16gb-1-30-ghz-64-core/specifications.html,server,64,64,230.0
+94035,Intel® Xeon Phi™ Processor 7250,2025-03-25 15:38:34,https://www.intel.com/content/www/us/en/products/sku/94035/intel-xeon-phi-processor-7250-16gb-1-40-ghz-68-core/specifications.html,server,68,68,215.0
+95829,Intel® Xeon Phi™ Processor 7250F,2025-03-25 15:38:34,https://www.intel.com/content/www/us/en/products/sku/95829/intel-xeon-phi-processor-7250f-16gb-1-40-ghz-68-core/specifications.html,server,68,68,230.0
+95830,Intel® Xeon Phi™ Processor 7290,2025-03-25 15:38:34,https://www.intel.com/content/www/us/en/products/sku/95830/intel-xeon-phi-processor-7290-16gb-1-50-ghz-72-core/specifications.html,server,72,72,245.0
+95831,Intel® Xeon Phi™ Processor 7290F,2025-03-25 15:38:35,https://www.intel.com/content/www/us/en/products/sku/95831/intel-xeon-phi-processor-7290f-16gb-1-50-ghz-72-core/specifications.html,server,72,72,260.0
+80555,Intel® Xeon Phi™ Coprocessor 7120A,2025-03-25 15:38:35,https://www.intel.com/content/www/us/en/products/sku/80555/intel-xeon-phi-coprocessor-7120a-16gb-1-238-ghz-61-core/specifications.html,server,61,61,300.0
+80310,Intel® Xeon Phi™ Coprocessor 7120D,2025-03-25 15:38:35,https://www.intel.com/content/www/us/en/products/sku/80310/intel-xeon-phi-coprocessor-7120d-16gb-1-238-ghz-61-core/specifications.html,server,61,61,270.0
+75797,Intel® Xeon Phi™ Coprocessor 3120A,2025-03-25 15:38:35,https://www.intel.com/content/www/us/en/products/sku/75797/intel-xeon-phi-coprocessor-3120a-6gb-1-100-ghz-57-core/specifications.html,server,57,57,300.0
+75798,Intel® Xeon Phi™ Coprocessor 3120P,2025-03-25 15:38:35,https://www.intel.com/content/www/us/en/products/sku/75798/intel-xeon-phi-coprocessor-3120p-6gb-1-100-ghz-57-core/specifications.html,server,57,57,300.0
+75801,Intel® Xeon Phi™ Coprocessor 5120D,2025-03-25 15:38:35,https://www.intel.com/content/www/us/en/products/sku/75801/intel-xeon-phi-coprocessor-5120d-8gb-1-053-ghz-60-core/specifications.html,server,60,60,245.0
+75799,Intel® Xeon Phi™ Coprocessor 7120P,2025-03-25 15:38:35,https://www.intel.com/content/www/us/en/products/sku/75799/intel-xeon-phi-coprocessor-7120p-16gb-1-238-ghz-61-core/specifications.html,server,61,61,300.0
+75800,Intel® Xeon Phi™ Coprocessor 7120X,2025-03-25 15:38:35,https://www.intel.com/content/www/us/en/products/sku/75800/intel-xeon-phi-coprocessor-7120x-16gb-1-238-ghz-61-core/specifications.html,server,61,61,300.0
+71992,Intel® Xeon Phi™ Coprocessor 5110P,2025-03-25 15:38:36,https://www.intel.com/content/www/us/en/products/sku/71992/intel-xeon-phi-coprocessor-5110p-8gb-1-053-ghz-60-core/specifications.html,server,60,60,225.0
 AMD Ryzen™ AI Max+ PRO 395,AMD Ryzen™ AI Max+ PRO 395,2025-03-19 11:27:13,https://www.amd.com/en/products/specifications/processors.html,local,16,32,55.0
 AMD Ryzen™ AI Max PRO 390,AMD Ryzen™ AI Max PRO 390,2025-03-19 11:27:13,https://www.amd.com/en/products/specifications/processors.html,local,12,24,55.0
 AMD Ryzen™ AI Max PRO 385,AMD Ryzen™ AI Max PRO 385,2025-03-19 11:27:13,https://www.amd.com/en/products/specifications/processors.html,local,8,16,55.0
@@ -3826,7 +3845,7 @@ AmpereOne A144-26X,AmpereOne A144-26X,2025-03-20 11:27:46,https://amperecomputin
 AmpereOne A144-24X,AmpereOne A144-24X,2025-03-20 11:27:46,https://amperecomputing.com/briefs/ampereone-family-product-brief,server,144,144,185.0
 AmpereOne A128-34X,AmpereOne A128-34X,2025-03-20 11:27:46,https://amperecomputing.com/briefs/ampereone-family-product-brief,server,128,128,280.0
 AmpereOne A96-37X,AmpereOne A96-37X,2025-03-20 11:27:46,https://amperecomputing.com/briefs/ampereone-family-product-brief,server,96,96,292.0
-default local,default local,2025-03-25T15:22:43.236236,default local,default local,1,1.55,47.95
-default server,default server,2025-03-25T15:22:43.240472,default server,default server,1,1.83,131.6
-default embedded,default embedded,2025-03-25T15:22:43.240541,default embedded,default embedded,1,1.96,121.59
-default unknown,default unknown,2025-03-25T15:22:43.240585,default unknown,default unknown,1,1.76,89.78
+default local,default local,2025-03-25T15:38:42.545339,default local,default local,1,1.55,47.95
+default server,default server,2025-03-25T15:38:42.549168,default server,default server,1,1.78,133.54
+default embedded,default embedded,2025-03-25T15:38:42.549226,default embedded,default embedded,1,1.96,121.59
+default unknown,default unknown,2025-03-25T15:38:42.549279,default unknown,default unknown,1,1.73,90.75
