@@ -1,6 +1,14 @@
 package org.cpuinfofetcher
 
+import org.cpuinfofetcher.utils.Helpers
 import org.cpuinfofetcher.utils.UnitsAdapter
+import org.dflib.Exp
+import org.dflib.Series
+import org.dflib.Printers
+
+import static org.dflib.Exp.*
+import java.time.LocalDateTime
+
 
 import java.nio.file.Files
 import java.util.logging.Logger
@@ -81,10 +89,13 @@ class Main {
         return specifications.rows().selectUnique('name')
     }
 
+
+
     static void main(String[] args) {
         this.days_until_outdated = args.length > 0 ? Integer.parseInt(args[0]) : 28
 
         Files.createDirectories(Paths.get('..', 'specifications_out'))
+        Files.createDirectories(Paths.get('..', 'nf-co2footprint'))
 
         // Collecting Info
         LOGGER.entering('Main', 'main')
@@ -111,9 +122,19 @@ class Main {
         selected_specifications = ua.unitToColumnName(selected_specifications, this.units_mapping)
         LOGGER.info('Extracted units from data.')
 
+        // adjusts format of tdp values to make them uniform
+        selected_specifications = ua.extractFirstNumber(selected_specifications)
+
+        // add default TDPs
+        selected_specifications = ProcessSpecificationsTable.computeDefaultTdps(selected_specifications)
+        LOGGER.info('Added default TDP values.')
+
         Csv.save(selected_specifications, Paths.get('..', 'specifications_out', 'specifications_filtered.csv'))
+        Csv.save(selected_specifications, Paths.get('..', 'nf-co2footprint', 'CPU_TDP.csv'))
+
         this.selected_specifications = selected_specifications
         LOGGER.info('Saved final results.')
+
 
 
         LOGGER.exiting('Main', 'main')

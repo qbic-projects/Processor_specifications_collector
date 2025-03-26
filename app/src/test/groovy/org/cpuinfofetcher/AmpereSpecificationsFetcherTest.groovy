@@ -52,7 +52,7 @@ class AmpereSpecificationsFetcherTest extends Specification {
             DataFrame specifications = Csv.load(this.tempPath.resolve('Ampere_cpu_specifications.csv'))
 
         then:
-            specifications.getColumnsIndex().toArray() == [
+            specifications.getColumnsIndex().toList() == [
                 'time', 'source' , 'intended_usage', 'name', 'CORES', 'SUSTAINED FREQUENCY (GHz)', 'USAGE POWER (W)', 'product_id'
             ]
     }
