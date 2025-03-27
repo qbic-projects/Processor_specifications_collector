@@ -1,20 +1,8 @@
 package org.cpuinfofetcher
 
-import org.cpuinfofetcher.utils.Helpers
-import org.cpuinfofetcher.utils.UnitsAdapter
-import org.dflib.Exp
-import org.dflib.Series
-import org.dflib.Printers
-
-import static org.dflib.Exp.*
-import java.time.LocalDateTime
-
-
 import java.nio.file.Files
 import java.util.logging.Logger
-
 import java.nio.file.Paths
-
 import org.dflib.DataFrame
 import org.dflib.JoinType
 import org.dflib.csv.Csv
@@ -47,7 +35,8 @@ class Main {
             'tdp', 'thermal design power', 'Thermal Design Power (TDP)',
         ],
         'cores': ['Total Cores', '# of CPU Cores', 'cores'],
-        'threads': ['cores', 'Total Cores', '# of CPU Cores', 'Total Threads', '# of Threads', 'threads']
+        'threads': ['cores', 'Total Cores', '# of CPU Cores', 'Total Threads', '# of Threads', 'threads'],
+        'Launch Year/Last Time Buy': ['Launch Year/Last Time Buy'],
     ]
     // Mapping units to columns
     static Map<String, List<String>> units_mapping = ['tdp': ['W', 'Watt']]
@@ -85,10 +74,6 @@ class Main {
         return specifications
     }
 
-    static DataFrame removeDuplicates(DataFrame specifications) {
-        return specifications.rows().selectUnique('name')
-    }
-
 
 
     static void main(String[] args) {
@@ -104,7 +89,13 @@ class Main {
 
         // Merging Info into big file
         DataFrame specifications = mergeSpecifications(specificationsList)
-        specifications = removeDuplicates(specifications)
+
+        // Remove duplicate rows
+        specifications = ProcessSpecificationsTable.removeDuplicates(specifications)
+
+        // Extract a uniform year for all rows
+        specifications = ProcessSpecificationsTable.extractUniformYearColumn(specifications)
+
         Csv.save(specifications, Paths.get('..', 'specifications_out', 'specifications.csv'))
         this.specifications = specifications
         LOGGER.info('Merged all specifications.')
@@ -123,11 +114,14 @@ class Main {
         LOGGER.info('Extracted units from data.')
 
         // adjusts format of tdp values to make them uniform
-        selected_specifications = ua.extractFirstNumber(selected_specifications)
+        selected_specifications = ProcessSpecificationsTable.extractFirstNumber(selected_specifications)
 
         // add default TDPs
         selected_specifications = ProcessSpecificationsTable.computeDefaultTdps(selected_specifications)
         LOGGER.info('Added default TDP values.')
+
+        // remove year column as it was just temporary added to compute default TDPs
+        selected_specifications = selected_specifications.colsExcept('Launch Year/Last Time Buy').select();
 
         Csv.save(selected_specifications, Paths.get('..', 'specifications_out', 'specifications_filtered.csv'))
         Csv.save(selected_specifications, Paths.get('..', 'nf-co2footprint', 'CPU_TDP.csv'))

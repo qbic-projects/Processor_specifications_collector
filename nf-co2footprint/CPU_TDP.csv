@@ -3845,7 +3845,7 @@ AmpereOne A144-26X,AmpereOne A144-26X,2025-03-20 11:27:46,https://amperecomputin
 AmpereOne A144-24X,AmpereOne A144-24X,2025-03-20 11:27:46,https://amperecomputing.com/briefs/ampereone-family-product-brief,server,144,144,185.0
 AmpereOne A128-34X,AmpereOne A128-34X,2025-03-20 11:27:46,https://amperecomputing.com/briefs/ampereone-family-product-brief,server,128,128,280.0
 AmpereOne A96-37X,AmpereOne A96-37X,2025-03-20 11:27:46,https://amperecomputing.com/briefs/ampereone-family-product-brief,server,96,96,292.0
-default local,default local,2025-03-26T10:50:41.048884,default local,default local,1,1.55,47.95
-default server,default server,2025-03-26T10:50:41.053035,default server,default server,1,1.78,133.54
-default embedded,default embedded,2025-03-26T10:50:41.053096,default embedded,default embedded,1,1.96,121.59
-default unknown,default unknown,2025-03-26T10:50:41.053137,default unknown,default unknown,1,1.73,90.75
+default local,default local,2025-03-27T10:13:21.712994,default local,default local,1,1.58,48.91
+default server,default server,2025-03-27T10:13:21.716594,default server,default server,1,1.93,154.52
+default embedded,default embedded,2025-03-27T10:13:21.716652,default embedded,default embedded,1,1.89,65.11
+default unknown,default unknown,2025-03-27T10:13:21.716698,default unknown,default unknown,1,1.84,101.71
