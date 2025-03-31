@@ -1,21 +1,10 @@
 package org.cpuinfofetcher
 
-import org.cpuinfofetcher.utils.Helpers
-import org.cpuinfofetcher.utils.UnitsAdapter
-import org.dflib.Exp
-import org.dflib.Series
-import org.dflib.Printers
-
-import static org.dflib.Exp.*
-import java.time.LocalDateTime
-
-
 import java.nio.file.Files
 import java.util.logging.Logger
-
 import java.nio.file.Paths
-
 import org.dflib.DataFrame
+import org.dflib.Printers
 import org.dflib.JoinType
 import org.dflib.csv.Csv
 
@@ -49,6 +38,9 @@ class Main {
         'cores': ['Total Cores', '# of CPU Cores', 'cores'],
         'threads': ['cores', 'Total Cores', '# of CPU Cores', 'Total Threads', '# of Threads', 'threads']
     ]
+
+    static Map<String, List<String>> specification_aliases_retain_null_entries = ['name': ['name'], "Launch Year/Last Time Buy": ["Launch Year/Last Time Buy"]]
+
     // Mapping units to columns
     static Map<String, List<String>> units_mapping = ['tdp': ['W', 'Watt']]
 
@@ -85,10 +77,6 @@ class Main {
         return specifications
     }
 
-    static DataFrame removeDuplicates(DataFrame specifications) {
-        return specifications.rows().selectUnique('name')
-    }
-
 
 
     static void main(String[] args) {
@@ -104,18 +92,39 @@ class Main {
 
         // Merging Info into big file
         DataFrame specifications = mergeSpecifications(specificationsList)
-        specifications = removeDuplicates(specifications)
+
+        // Remove duplicate rows
+        specifications = ProcessSpecificationsTable.removeDuplicates(specifications)
+
+        // Extract a uniform year for all rows
+        specifications = ProcessSpecificationsTable.extractUniformYearColumn(specifications)
+
         Csv.save(specifications, Paths.get('..', 'specifications_out', 'specifications.csv'))
         this.specifications = specifications
         LOGGER.info('Merged all specifications.')
 
         // Selecting relevant information
         CPUSpecificationsSummarizer summarizer = new CPUSpecificationsSummarizer()
-        DataFrame selected_specifications = summarizer.extract_selection(
-            specifications,
+
+        selected_specifications = summarizer.extract_selection(
+                specifications,
             this.specification_aliases,
             true
         )
+
+        // Add "Launch Year/Last Time Buy" column
+        DataFrame columns_to_add = summarizer.extract_selection(
+                specifications,
+                this.specification_aliases_retain_null_entries,
+                false
+        )
+
+        // Perform Left Join (keeping all rows of selected_specifications)
+        def selected_specifications = selected_specifications.join(columns_to_add)
+                .on("name")
+                .colsExcept(c -> c.endsWith("_"))
+                .select()
+
         LOGGER.info('Extracted information.')
 
         UnitsAdapter ua = new UnitsAdapter()
@@ -123,7 +132,7 @@ class Main {
         LOGGER.info('Extracted units from data.')
 
         // adjusts format of tdp values to make them uniform
-        selected_specifications = ua.extractFirstNumber(selected_specifications)
+        selected_specifications = ProcessSpecificationsTable.extractFirstNumber(selected_specifications)
 
         // add default TDPs
         selected_specifications = ProcessSpecificationsTable.computeDefaultTdps(selected_specifications)
