@@ -82,6 +82,37 @@ This map tells the program, which units to expect in the respective columns. It 
 
 There is currently **no support** to map scaled units to base units (e.g. 1 kW -> 1000 W).
 
+### TDP value conversion
+The TDP values are given in a different format depending on the manufacturer / CPU model.
+They have been brought into a standardized format. If a range of values was specified, the lowest value was always used.
+The following table shows examples of the different formats on the left and the standardized version on the right.
+
+<table>
+<tr><th>Before:</th><th></th><th>After:</th></tr>
+<tr><td>
+
+| tdp (W)  |
+|----------|
+| 15-30    |
+| 1.5/20   |
+| 3.1--6   |
+
+</td><td></td><td>
+
+| tdp (W) |
+|---------|
+| 15      |
+| 1.5     |
+| 3.1     |
+
+</td></tr> </table>
+
+### Default TDP value computation
+Default TDP values are computed per intended use of the processors listed in the table.
+For this purpose only processors with a `launch date/last time buy` date nor older than the `current year -
+10 years` are considered.
+The year information can be changed in the `computeDefaultTdps`function. The default TDP values are added to the output csv file as bottom rows. 
+
 ## Contibuting
 ### Linting
 The linting rules are specified in `.groovylintrc.json` please apply them, when contributing new code.
