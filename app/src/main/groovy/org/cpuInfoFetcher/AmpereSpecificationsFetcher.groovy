@@ -53,7 +53,7 @@ class AmpereSpecificationsFetcher extends SpecificationsFetcher {
             String xPath_query = './/div/*[contains(text(), "Ampere Altra Family Products")]/..//table'
 
             Element table = this.scraper.scrape(url, xPath_query).first()
-            String intended_usage = 'server' // ampere processors intended for server use in general
+            String intended_usage = 'compute cluster' // ampere processors intended for compute cluster use in general
             df = this.scraper.parse_table(table)
             df = add_metadata(df, url, intended_usage)
             df = df.cols().selectAs(Map.of('ORDERING PART NUMBER', 'product_id'))

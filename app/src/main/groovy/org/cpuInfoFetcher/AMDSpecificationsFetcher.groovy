@@ -120,8 +120,8 @@ class AMDSpecificationsFetcher extends SpecificationsFetcher {
         // Map for intended usage per specification category
         Map<String, String> intended_usage_map = [
             'processors': 'local',               
-            'server-processor': 'server',        
-            'accelerators': 'server',      
+            'server-processor': 'compute cluster',
+            'accelerators': 'compute cluster',
             'embedded': 'embedded',             
             'professional-graphics': 'graphics',
             'graphics': 'graphics',              

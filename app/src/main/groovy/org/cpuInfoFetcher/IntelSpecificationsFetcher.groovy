@@ -89,7 +89,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
                         'Intel® Xeon Phi® Processors',
                         timeFormat.format(this.localTime.now()) ,
                         'https://www.intel.com/content/www/us/en/ark/featurefilter.html',
-                        'server',
+                        'compute cluster',
                         'https://www.intel.com/content/www/us/en/ark/featurefilter.html?productType=873&1_Filter-Family=75557')
 
             df = df.toDataFrame()
@@ -279,7 +279,7 @@ class IntelSpecificationsFetcher extends SpecificationsFetcher {
         Map<String, String> intended_usage_map = [
         'Intel® Core™ Ultra'    : 'local',
         'Intel® Core™'          : 'local',
-        'Intel® Xeon®'          : 'server',
+        'Intel® Xeon®'          : 'compute cluster',
         'Intel Atom®'           : 'local',
         'Intel® Pentium®'       : 'local',
         'Intel® Celeron®'       : 'local',

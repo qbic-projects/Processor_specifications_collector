@@ -87,10 +87,10 @@ class SpecificationsFetcherTest extends Specification {
             )
 
         where:
-            passIntendedUsage | source        | intendedUsage || expectedIntendedUsage
-            false             | 'some_source' | _             || 'unknown'
-            true              | 'some_source' | 'local'       || 'local'
-            true              | 'other_source'| 'server'      || 'server'
+            passIntendedUsage | source        | intendedUsage       || expectedIntendedUsage
+            false             | 'some_source' | _                   || 'unknown'
+            true              | 'some_source' | 'local'             || 'local'
+            true              | 'other_source'| 'compute cluster'   || 'compute cluster'
 }
 
 

@@ -113,7 +113,7 @@ static DataFrame computeDefaultTdps(DataFrame specifications) {
             $col('threads').castAsInt().avg().as("avg_threads"),
             $col('tdp (W)').castAsDouble().avg().as("avg_tdp"))
 
-    DataFrame local_server_rows = aggregatedDf.rows({ it.get('intended_usage') == 'local' || it.get('intended_usage') == 'server' })
+    DataFrame local_server_rows = aggregatedDf.rows({ it.get('intended_usage') == 'local' || it.get('intended_usage') == 'compute cluster' })
             .select()
 
     Double unknown_avg_cores = (local_server_rows.sum { it.get('avg_cores') } as Double) / local_server_rows.height()

@@ -42,14 +42,14 @@ class ProcessSpecificationsTableTest extends Specification {
         setup:
         DataFrame input = DataFrame
                 .foldByColumn("intended_usage", "cores", "threads", "tdp (W)", "Launch Year/Last Time Buy")
-                .of("local", "server", "embedded", "local", "server", "embedded", "embedded",
+                .of("local", "compute cluster", "embedded", "local", "compute cluster", "embedded", "embedded",
                         2, 8, 4, 4, 16, 4, 4,
                         2, 16, 8, 4, 32, 8, 8,
                         15.0, 15.0, 1.5, 15.0, 10.0, 1.5, 2.5,
                         2022, 2023, 2027, 2025, 2030, 2021, -1)
         DataFrame expected = DataFrame
                 .foldByColumn("intended_usage", "cores", "threads", "tdp (W)", "Launch Year/Last Time Buy")
-                .of("local", "server", "embedded", "local", "server", "embedded", "embedded", "default local", "default server", "default embedded", "default unknown",
+                .of("local", "compute cluster", "embedded", "local", "compute cluster", "embedded", "embedded", "default local", "default compute cluster", "default embedded", "default unknown",
                         2, 8, 4, 4, 16, 4, 4, 1, 1, 1, 1,
                         2, 16, 8, 4, 32, 8, 8, 1, 2.0, 2.0, 1.8,
                         15.0, 15.0, 1.5, 15.0, 10.0, 1.5, 2.5, 15.0, 12.5, 1.5, 13.75,
