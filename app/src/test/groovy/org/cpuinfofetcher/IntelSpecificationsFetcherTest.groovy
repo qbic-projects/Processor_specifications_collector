@@ -103,7 +103,7 @@ class IntelSpecificationsFetcherTest extends Specification  {
     def 'check existence of model website'() {
         setup:
             HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create('https://www.intel.com/content/www/us/en/products/sku/35635/intel-atom-processor-230-512k-cache-1-60-ghz-533-mhz-fsb/specifications.html'))
+                .uri(URI.create('https://www.intel.com/content/www/us/en/products/sku/230902/intel-core-i31215ul-processor-10m-cache-up-to-4-40-ghz/specifications.html'))
                 .build()
 
         when:
@@ -120,7 +120,7 @@ class IntelSpecificationsFetcherTest extends Specification  {
                 .foldByRow('product_id', 'url', 'name', 'intended_usage')
                 .of(
                     '0',
-                    'https://www.intel.com/content/www/us/en/products/sku/35635/intel-atom-processor-230-512k-cache-1-60-ghz-533-mhz-fsb/specifications.html',
+                    'https://www.intel.com/content/www/us/en/products/sku/230902/intel-core-i31215ul-processor-10m-cache-up-to-4-40-ghz/specifications.html',
                     'some_name',
                     'local'
                 )
@@ -132,16 +132,29 @@ class IntelSpecificationsFetcherTest extends Specification  {
         then:
             specifications.getColumnsIndex().toList() == [
                 'product_id', 'name', 'time', 'source', 'intended_usage', 'Product Collection', 'Code Name', 'Vertical Segment',
-                'Processor Number', 'Lithography', 'Total Cores', 'Processor Base Frequency', 'Cache', 'Bus Speed',
-                'FSB Parity', 'TDP', 'VID Voltage Range', 'Marketing Status', 'Launch Date', 'Servicing Status',
-                'Embedded Options Available', 'Sockets Supported', 'TCASE', 'Package Size', 'Processing Die Size',
-                '# of Processing Die Transistors', 'Intel® Turbo Boost Technology ‡',
-                'Intel® Hyper-Threading Technology ‡', 'Intel® Virtualization Technology (VT-x) ‡',
-                'Intel® Virtualization Technology for Directed I/O (VT-d) ‡', 'Intel® 64 ‡', 'Instruction Set',
-                'Instruction Set Extensions', 'Idle States', 'Enhanced Intel SpeedStep® Technology',
-                'Intel® Demand Based Switching', 'Thermal Monitoring Technologies',
-                'Intel® Trusted Execution Technology ‡', 'Execute Disable Bit ‡'
-            ]
+                'Processor Number', 'Lithography', 'Total Cores', '# of Performance-cores', '# of Efficient-cores', 'Total Threads',
+                'Max Turbo Frequency', 'Performance-core Max Turbo Frequency', 'Efficient-core Max Turbo Frequency',
+                'Processor Base Frequency', 'Cache', 'Processor Base Power', 'TDP', 'Minimum Assured Power', 'Maximum Assured Power',
+                'Marketing Status', 'Launch Date', 'Embedded Options Available', 'Use Conditions', 'Max Memory Size (dependent on memory type)',
+                'Memory Types', 'Max # of Memory Channels', 'ECC Memory Supported ‡', 'GPU Name‡', 'Graphics Max Dynamic Frequency',
+                'Graphics Output', 'Execution Units', 'Max Resolution (HDMI)‡', 'Max Resolution (DP)‡', 'Max Resolution (eDP - Integrated Flat Panel)‡',
+                'DirectX* Support', 'OpenGL* Support', 'OpenCL* Support', 'Multi-Format Codec Engines', 'Intel® Quick Sync Video',
+                '# of Displays Supported ‡', 'Device ID', 'Intel® Thunderbolt™ 4', 'Microprocessor PCIe Revision', 'Chipset / PCH PCIe Revision',
+                'Max # of PCI Express Lanes', 'Sockets Supported', 'Max CPU Configuration', 'TJUNCTION', 'Package Size',
+                'Max Operating Temperature', 'Intel® Volume Management Device (VMD)', 'Intel® Gaussian & Neural Accelerator',
+                'Intel® Thread Director', 'Intel® Image Processing Unit', 'Intel® Smart Sound Technology', 'Intel® Wake on Voice',
+                'Intel® High Definition Audio', 'MIPI SoundWire*', 'Intel® Deep Learning Boost (Intel® DL Boost) on CPU',
+                'Intel® Adaptix™ Technology', 'Intel® Speed Shift Technology', 'Intel® Turbo Boost Technology ‡',
+                'Intel® Hyper-Threading Technology ‡', 'Instruction Set', 'Instruction Set Extensions', 'Thermal Monitoring Technologies',
+                'Intel® Flex Memory Access', 'Intel® Hardware Shield Eligibility ‡', 'Intel® Threat Detection Technology (TDT)',
+                'Intel® Active Management Technology (AMT) ‡', 'Intel® Standard Manageability (ISM) ‡', 'Intel® Remote Platform Erase (RPE) ‡',
+                'Intel® One-Click Recovery ‡', 'Intel® QuickAssist Software Acceleration', 'Intel® Control-Flow Enforcement Technology',
+                'Intel® Total Memory Encryption - Multi Key', 'Intel® Total Memory Encryption', 'Intel® AES New Instructions',
+                'Secure Key', 'Intel® OS Guard', 'Intel® Trusted Execution Technology ‡', 'Execute Disable Bit ‡',
+                'Intel® Boot Guard', 'Mode-based Execute Control (MBEC)', 'Intel® Stable IT Platform Program (SIPP)',
+                'Intel® Virtualization Technology with Redirect Protection (VT-rp) ‡', 'Intel® Virtualization Technology (VT-x) ‡',
+                'Intel® Virtualization Technology for Directed I/O (VT-d) ‡', 'Intel® VT-x with Extended Page Tables (EPT) ‡'
+                ]
     }
 
 }
